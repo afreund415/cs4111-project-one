@@ -1,0 +1,3 @@
+itinerary_id,travel_date,departure_time,traveler_id,policy_id,country_id_origin,country_id_destination
+1,11/5/2021,10:00 AM,1,1,DE,US
+2,11/5/2021,10:00 AM,2,67,US,DE

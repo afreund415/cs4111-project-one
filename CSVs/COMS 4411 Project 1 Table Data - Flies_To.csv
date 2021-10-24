@@ -1,0 +1,11 @@
+country_id_origin,country_id_destination
+US,DE
+DE,US
+CZ,US
+US,ES
+ES,US
+IR,US
+MX,US
+MX,ES
+ES,DE
+UY,ES

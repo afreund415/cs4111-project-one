@@ -1,0 +1,12 @@
+traveler_id,fname,lname,vax_status,citizenship,dob
+1,Mary,Jones,TRUE,US,02/20/76
+2,John,Smith,TRUE,US,04/04/02
+3,Jane,Williams,FALSE,US,11/27/80
+4,Hector,Lopez,TRUE,AR,05/03/00
+5,Maria,Garcia,FALSE,NI,01/08/91
+6,Ben,Johnson,FALSE,AU,07/25/84
+7,Michelle,Lee,TRUE,CN,02/19/67
+8,Thomas,Davis,TRUE,DE,08/09/92
+9,Lucas,Clark,TRUE,DE,06/25/73
+10,Jennifer,Hernandez,TRUE,CO,08/20/89
+11,Andreas,Freund,TRUE,US,06/10/1994

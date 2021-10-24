@@ -1,0 +1,84 @@
+policy_id,pname,valid_from,valid_to,vax_policy,policy_data,country_id,group_id
+1,US Banned Entry Policy,,,,https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/covid-19-travel-restrictions-and-exceptions.html,US,US1
+2,US Travel Policy,,11/8/21,FALSE,https://www.cdc.gov/coronavirus/2019-ncov/travelers/testing-international-air-travelers.html,US,US2
+3,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,AT,EU1
+4,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,BE,EU1
+5,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,BG,EU1
+6,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,HR,EU1
+7,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,CY,EU1
+8,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,CZ,EU1
+9,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,DK,EU1
+10,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,EE,EU1
+11,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,FI,EU1
+12,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,FR,EU1
+13,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,DE,EU1
+14,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,GR,EU1
+15,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,HU,EU1
+16,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,IE,EU1
+17,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,IT,EU1
+18,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,LV,EU1
+19,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,LT,EU1
+20,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,LU,EU1
+21,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,MT,EU1
+22,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,NL,EU1
+23,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,PL,EU1
+24,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,PT,EU1
+25,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,RO,EU1
+26,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,SK,EU1
+27,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,SI,EU1
+28,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,ES,EU1
+29,EU Exempt From Restrictions,10/8/2021,10/22/2021,FALSE,https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/travel-during-coronavirus-pandemic/exemptions-coronavirus-travel-restrictions-eu_en,SE,EU1
+30,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,AT,EU2
+31,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,BE,EU2
+32,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,BG,EU2
+33,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,HR,EU2
+34,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,CY,EU2
+35,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,CZ,EU2
+36,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,DK,EU2
+37,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,EE,EU2
+38,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,FI,EU2
+39,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,FR,EU2
+40,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,DE,EU2
+41,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,GR,EU2
+42,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,HU,EU2
+43,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,IE,EU2
+44,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,IT,EU2
+45,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,LV,EU2
+46,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,LT,EU2
+47,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,LU,EU2
+48,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,MT,EU2
+49,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,NL,EU2
+50,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,PL,EU2
+51,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,PT,EU2
+52,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,RO,EU2
+53,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,SK,EU2
+54,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,SI,EU2
+55,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,ES,EU2
+56,EU Low Risk,,,FALSE,https://www.consilium.europa.eu/en/policies/coronavirus/covid-19-travel-into-the-eu/,SE,EU2
+57,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,AT,EU3
+58,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,BE,EU3
+59,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,BG,EU3
+60,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,HR,EU3
+61,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,CY,EU3
+62,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,CZ,EU3
+63,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,DK,EU3
+64,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,EE,EU3
+65,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,FI,EU3
+66,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,FR,EU3
+67,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,DE,EU3
+68,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,GR,EU3
+69,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,HU,EU3
+70,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,IE,EU3
+71,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,IT,EU3
+72,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,LV,EU3
+73,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,LT,EU3
+74,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,LU,EU3
+75,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,MT,EU3
+76,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,NL,EU3
+77,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,PL,EU3
+78,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,PT,EU3
+79,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,RO,EU3
+80,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,SK,EU3
+81,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,SI,EU3
+82,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,ES,EU3
+83,EU Vaccinated Entry,,,TRUE,https://reopen.europa.eu/en,SE,EU3
