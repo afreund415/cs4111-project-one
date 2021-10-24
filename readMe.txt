@@ -2,7 +2,10 @@ Super simple initial api with two endpoints
 
 
 Folder Structure:
-    
+    1. Hello world python file with flask 
+    2. Schema folder for SQL Schema
+    3. CSVs folder for data dumps
+
 
 Installation:
     1. Flask: 
