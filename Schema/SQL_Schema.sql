@@ -1,6 +1,6 @@
 CREATE TABLE Countries(
     country_id varchar(2),
-    cname varchar(30) NOT NULL --NOT NULL?
+    cname varchar(200) NOT NULL --NOT NULL?
     PRIMARY KEY (country_id)
     -- Cannot map participation constraint with Risk Groups
 )

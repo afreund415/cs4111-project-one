@@ -1,241 +1,241 @@
-country_id,cname,Temp for vlookup
-AF,Afghanistan,AF
-AL,Albania,AL
-DZ,Algeria,DZ
-AS,American Samoa,AS
-AD,Andorra,AD
-AO,Angola,AO
-AI,Anguilla,AI
-AQ,Antarctica,AQ
-AG,Antigua and Barbuda,AG
-AR,Argentina,AR
-AM,Armenia,AM
-AW,Aruba,AW
-AU,Australia,AU
-AT,Austria,AT
-AZ,Azerbaijan,AZ
-BS,Bahamas,BS
-BH,Bahrain,BH
-BD,Bangladesh,BD
-BB,Barbados,BB
-BY,Belarus,BY
-BE,Belgium,BE
-BZ,Belize,BZ
-BJ,Benin,BJ
-BM,Bermuda,BM
-BT,Bhutan,BT
-BO,Bolivia,BO
-BA,Bosnia and Herzegovina,BA
-BW,Botswana,BW
-BR,Brazil,BR
-IO,British Indian Ocean Territory,IO
-VG,British Virgin Islands,VG
-BN,Brunei,BN
-BG,Bulgaria,BG
-BF,Burkina Faso,BF
-BI,Burundi,BI
-KH,Cambodia,KH
-CM,Cameroon,CM
-CA,Canada,CA
-CV,Cape Verde,CV
-KY,Cayman Islands,KY
-CF,Central African Republic,CF
-TD,Chad,TD
-CL,Chile,CL
-CN,China,CN
-CX,Christmas Island,CX
-CC,Cocos Islands,CC
-CO,Colombia,CO
-KM,Comoros,KM
-CK,Cook Islands,CK
-CR,Costa Rica,CR
-HR,Croatia,HR
-CU,Cuba,CU
-CW,Curacao,CW
-CY,Cyprus,CY
-CZ,Czech Republic,CZ
-CD,Democratic Republic of the Congo,CD
-DK,Denmark,DK
-DJ,Djibouti,DJ
-DM,Dominica,DM
-DO,Dominican Republic,DO
-TL,East Timor,TL
-EC,Ecuador,EC
-EG,Egypt,EG
-SV,El Salvador,SV
-GQ,Equatorial Guinea,GQ
-ER,Eritrea,ER
-EE,Estonia,EE
-ET,Ethiopia,ET
-FK,Falkland Islands,FK
-FO,Faroe Islands,FO
-FJ,Fiji,FJ
-FI,Finland,FI
-FR,France,FR
-PF,French Polynesia,PF
-GA,Gabon,GA
-GM,Gambia,GM
-GE,Georgia,GE
-DE,Germany,DE
-GH,Ghana,GH
-GI,Gibraltar,GI
-GR,Greece,GR
-GL,Greenland,GL
-GD,Grenada,GD
-GU,Guam,GU
-GT,Guatemala,GT
-GG,Guernsey,GG
-GN,Guinea,GN
-GW,Guinea-Bissau,GW
-GY,Guyana,GY
-HT,Haiti,HT
-HN,Honduras,HN
-HK,Hong Kong,HK
-HU,Hungary,HU
-IS,Iceland,IS
-IN,India,IN
-ID,Indonesia,ID
-IR,Iran,IR
-IQ,Iraq,IQ
-IE,Ireland,IE
-IM,Isle of Man,IM
-IL,Israel,IL
-IT,Italy,IT
-CI,Ivory Coast,CI
-JM,Jamaica,JM
-JP,Japan,JP
-JE,Jersey,JE
-JO,Jordan,JO
-KZ,Kazakhstan,KZ
-KE,Kenya,KE
-KI,Kiribati,KI
-XK,Kosovo,XK
-KW,Kuwait,KW
-KG,Kyrgyzstan,KG
-LA,Laos,LA
-LV,Latvia,LV
-LB,Lebanon,LB
-LS,Lesotho,LS
-LR,Liberia,LR
-LY,Libya,LY
-LI,Liechtenstein,LI
-LT,Lithuania,LT
-LU,Luxembourg,LU
-MO,Macau,MO
-MK,Macedonia,MK
-MG,Madagascar,MG
-MW,Malawi,MW
-MY,Malaysia,MY
-MV,Maldives,MV
-ML,Mali,ML
-MT,Malta,MT
-MH,Marshall Islands,MH
-MR,Mauritania,MR
-MU,Mauritius,MU
-YT,Mayotte,YT
-MX,Mexico,MX
-FM,Micronesia,FM
-MD,Moldova,MD
-MC,Monaco,MC
-MN,Mongolia,MN
-ME,Montenegro,ME
-MS,Montserrat,MS
-MA,Morocco,MA
-MZ,Mozambique,MZ
-MM,Myanmar,MM
-NA,Namibia,NA
-NR,Nauru,NR
-NP,Nepal,NP
-NL,Netherlands,NL
-AN,Netherlands Antilles,AN
-NC,New Caledonia,NC
-NZ,New Zealand,NZ
-NI,Nicaragua,NI
-NE,Niger,NE
-NG,Nigeria,NG
-NU,Niue,NU
-KP,North Korea,KP
-MP,Northern Mariana Islands,MP
-NO,Norway,NO
-OM,Oman,OM
-PK,Pakistan,PK
-PW,Palau,PW
-PS,Palestine,PS
-PA,Panama,PA
-PG,Papua New Guinea,PG
-PY,Paraguay,PY
-PE,Peru,PE
-PH,Philippines,PH
-PN,Pitcairn,PN
-PL,Poland,PL
-PT,Portugal,PT
-PR,Puerto Rico,PR
-QA,Qatar,QA
-CG,Republic of the Congo,CG
-RE,Reunion,RE
-RO,Romania,RO
-RU,Russia,RU
-RW,Rwanda,RW
-BL,Saint Barthelemy,BL
-SH,Saint Helena,SH
-KN,Saint Kitts and Nevis,KN
-LC,Saint Lucia,LC
-MF,Saint Martin,MF
-PM,Saint Pierre and Miquelon,PM
-VC,Saint Vincent and the Grenadines,VC
-WS,Samoa,WS
-SM,San Marino,SM
-ST,Sao Tome and Principe,ST
-SA,Saudi Arabia,SA
-SN,Senegal,SN
-RS,Serbia,RS
-SC,Seychelles,SC
-SL,Sierra Leone,SL
-SG,Singapore,SG
-SX,Sint Maarten,SX
-SK,Slovakia,SK
-SI,Slovenia,SI
-SB,Solomon Islands,SB
-SO,Somalia,SO
-ZA,South Africa,ZA
-KR,South Korea,KR
-SS,South Sudan,SS
-ES,Spain,ES
-LK,Sri Lanka,LK
-SD,Sudan,SD
-SR,Suriname,SR
-SJ,Svalbard and Jan Mayen,SJ
-SZ,Swaziland,SZ
-SE,Sweden,SE
-CH,Switzerland,CH
-SY,Syria,SY
-TW,Taiwan,TW
-TJ,Tajikistan,TJ
-TZ,Tanzania,TZ
-TH,Thailand,TH
-TG,Togo,TG
-TK,Tokelau,TK
-TO,Tonga,TO
-TT,Trinidad and Tobago,TT
-TN,Tunisia,TN
-TR,Turkey,TR
-TM,Turkmenistan,TM
-TC,Turks and Caicos Islands,TC
-TV,Tuvalu,TV
-VI,U.S. Virgin Islands,VI
-UG,Uganda,UG
-UA,Ukraine,UA
-AE,United Arab Emirates,AE
-GB,United Kingdom,GB
-US,United States,US
-UY,Uruguay,UY
-UZ,Uzbekistan,UZ
-VU,Vanuatu,VU
-VA,Vatican,VA
-VE,Venezuela,VE
-VN,Vietnam,VN
-WF,Wallis and Futuna,WF
-EH,Western Sahara,EH
-YE,Yemen,YE
-ZM,Zambia,ZM
-ZW,Zimbabwe,ZW
+country_id,cname
+AF,Afghanistan
+AL,Albania
+DZ,Algeria
+AS,American Samoa
+AD,Andorra
+AO,Angola
+AI,Anguilla
+AQ,Antarctica
+AG,Antigua and Barbuda
+AR,Argentina
+AM,Armenia
+AW,Aruba
+AU,Australia
+AT,Austria
+AZ,Azerbaijan
+BS,Bahamas
+BH,Bahrain
+BD,Bangladesh
+BB,Barbados
+BY,Belarus
+BE,Belgium
+BZ,Belize
+BJ,Benin
+BM,Bermuda
+BT,Bhutan
+BO,Bolivia
+BA,Bosnia and Herzegovina
+BW,Botswana
+BR,Brazil
+IO,British Indian Ocean Territory
+VG,British Virgin Islands
+BN,Brunei
+BG,Bulgaria
+BF,Burkina Faso
+BI,Burundi
+KH,Cambodia
+CM,Cameroon
+CA,Canada
+CV,Cape Verde
+KY,Cayman Islands
+CF,Central African Republic
+TD,Chad
+CL,Chile
+CN,China
+CX,Christmas Island
+CC,Cocos Islands
+CO,Colombia
+KM,Comoros
+CK,Cook Islands
+CR,Costa Rica
+HR,Croatia
+CU,Cuba
+CW,Curacao
+CY,Cyprus
+CZ,Czech Republic
+CD,Democratic Republic of the Congo
+DK,Denmark
+DJ,Djibouti
+DM,Dominica
+DO,Dominican Republic
+TL,East Timor
+EC,Ecuador
+EG,Egypt
+SV,El Salvador
+GQ,Equatorial Guinea
+ER,Eritrea
+EE,Estonia
+ET,Ethiopia
+FK,Falkland Islands
+FO,Faroe Islands
+FJ,Fiji
+FI,Finland
+FR,France
+PF,French Polynesia
+GA,Gabon
+GM,Gambia
+GE,Georgia
+DE,Germany
+GH,Ghana
+GI,Gibraltar
+GR,Greece
+GL,Greenland
+GD,Grenada
+GU,Guam
+GT,Guatemala
+GG,Guernsey
+GN,Guinea
+GW,Guinea-Bissau
+GY,Guyana
+HT,Haiti
+HN,Honduras
+HK,Hong Kong
+HU,Hungary
+IS,Iceland
+IN,India
+ID,Indonesia
+IR,Iran
+IQ,Iraq
+IE,Ireland
+IM,Isle of Man
+IL,Israel
+IT,Italy
+CI,Ivory Coast
+JM,Jamaica
+JP,Japan
+JE,Jersey
+JO,Jordan
+KZ,Kazakhstan
+KE,Kenya
+KI,Kiribati
+XK,Kosovo
+KW,Kuwait
+KG,Kyrgyzstan
+LA,Laos
+LV,Latvia
+LB,Lebanon
+LS,Lesotho
+LR,Liberia
+LY,Libya
+LI,Liechtenstein
+LT,Lithuania
+LU,Luxembourg
+MO,Macau
+MK,Macedonia
+MG,Madagascar
+MW,Malawi
+MY,Malaysia
+MV,Maldives
+ML,Mali
+MT,Malta
+MH,Marshall Islands
+MR,Mauritania
+MU,Mauritius
+YT,Mayotte
+MX,Mexico
+FM,Micronesia
+MD,Moldova
+MC,Monaco
+MN,Mongolia
+ME,Montenegro
+MS,Montserrat
+MA,Morocco
+MZ,Mozambique
+MM,Myanmar
+NA,Namibia
+NR,Nauru
+NP,Nepal
+NL,Netherlands
+AN,Netherlands Antilles
+NC,New Caledonia
+NZ,New Zealand
+NI,Nicaragua
+NE,Niger
+NG,Nigeria
+NU,Niue
+KP,North Korea
+MP,Northern Mariana Islands
+NO,Norway
+OM,Oman
+PK,Pakistan
+PW,Palau
+PS,Palestine
+PA,Panama
+PG,Papua New Guinea
+PY,Paraguay
+PE,Peru
+PH,Philippines
+PN,Pitcairn
+PL,Poland
+PT,Portugal
+PR,Puerto Rico
+QA,Qatar
+CG,Republic of the Congo
+RE,Reunion
+RO,Romania
+RU,Russia
+RW,Rwanda
+BL,Saint Barthelemy
+SH,Saint Helena
+KN,Saint Kitts and Nevis
+LC,Saint Lucia
+MF,Saint Martin
+PM,Saint Pierre and Miquelon
+VC,Saint Vincent and the Grenadines
+WS,Samoa
+SM,San Marino
+ST,Sao Tome and Principe
+SA,Saudi Arabia
+SN,Senegal
+RS,Serbia
+SC,Seychelles
+SL,Sierra Leone
+SG,Singapore
+SX,Sint Maarten
+SK,Slovakia
+SI,Slovenia
+SB,Solomon Islands
+SO,Somalia
+ZA,South Africa
+KR,South Korea
+SS,South Sudan
+ES,Spain
+LK,Sri Lanka
+SD,Sudan
+SR,Suriname
+SJ,Svalbard and Jan Mayen
+SZ,Swaziland
+SE,Sweden
+CH,Switzerland
+SY,Syria
+TW,Taiwan
+TJ,Tajikistan
+TZ,Tanzania
+TH,Thailand
+TG,Togo
+TK,Tokelau
+TO,Tonga
+TT,Trinidad and Tobago
+TN,Tunisia
+TR,Turkey
+TM,Turkmenistan
+TC,Turks and Caicos Islands
+TV,Tuvalu
+VI,U.S. Virgin Islands
+UG,Uganda
+UA,Ukraine
+AE,United Arab Emirates
+GB,United Kingdom
+US,United States
+UY,Uruguay
+UZ,Uzbekistan
+VU,Vanuatu
+VA,Vatican
+VE,Venezuela
+VN,Vietnam
+WF,Wallis and Futuna
+EH,Western Sahara
+YE,Yemen
+ZM,Zambia
+ZW,Zimbabwe
