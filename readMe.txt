@@ -6,6 +6,23 @@ Folder Structure:
     2. Schema folder for SQL Schema
     3. CSVs folder for data dumps
 
+Copying CSV Data into tables:
+    Note: The order matters due to the constraints so if you're adding new data in bulk to a table, make sure you follow this order. You should also navigate to the CSV folder before you run psql in order for the copy and paste to work. 
+    1. - \copy Countries FROM './Countries.csv' with (format csv, header true, delimiter ',');
+    2. \copy Risk_Groups FROM './Risk_Groups.csv' with (format csv, header true, delimiter ',');
+    3. \copy Travelers FROM './Travelers.csv' with (format csv, header true, delimiter ',');
+    4. \copy Policies FROM './Policies.csv' with (format csv, header true, delimiter ',');
+    5. \copy Flies_To FROM './Flies_To.csv' with (format csv, header true, delimiter ',');
+    6. \copy Member_Of FROM './Member_Of.csv' with (format csv, header true, delimiter ',');
+    7. \copy Itineraries FROM './Itineraries.csv' with (format csv, header true, delimiter ',');
+
+
+
+
+
+
+
+WEB-APP
 
 Installation:
     1. Flask: 
