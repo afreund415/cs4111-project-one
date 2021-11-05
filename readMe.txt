@@ -8,7 +8,7 @@ Folder Structure:
 
 Copying CSV Data into tables:
     Note: The order matters due to the constraints so if you're adding new data in bulk to a table, make sure you follow this order. You should also navigate to the CSV folder before you run psql in order for the copy and paste to work. 
-    1. - \copy Countries FROM './Countries.csv' with (format csv, header true, delimiter ',');
+    1. \copy Countries FROM './Countries.csv' with (format csv, header true, delimiter ',');
     2. \copy Risk_Groups FROM './Risk_Groups.csv' with (format csv, header true, delimiter ',');
     3. \copy Travelers FROM './Travelers.csv' with (format csv, header true, delimiter ',');
     4. \copy Policies FROM './Policies.csv' with (format csv, header true, delimiter ',');
@@ -19,7 +19,7 @@ Copying CSV Data into tables:
 
 
 
-
+Hernan was here
 
 
 WEB-APP
