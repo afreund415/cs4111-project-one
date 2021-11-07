@@ -8,6 +8,13 @@ Folder Structure:
 Running: 
     Right now, all you have to do to run the program is switch to the folder, and run <python server.py --debug> and it'll run. The debug part is optional
 
+Submitting pull requests on github:
+    1. git pull 
+    2. git add -A 
+    3. git commit -m "message"
+    4. git push 
+
+
 Copying CSV Data into tables:
     Note: The order matters due to the constraints so if you're adding new data in bulk to a table, make sure you follow this order. You should also navigate to the CSV folder before you run psql in order for the copy and paste to work. 
     1. \copy Countries FROM './Countries.csv' with (format csv, header true, delimiter ',');
@@ -20,12 +27,7 @@ Copying CSV Data into tables:
 
 
 
-WEB-APP
-
 Installation:
    
-
-Running CLI: 
-
-
+Navigation: 
 
