@@ -1,10 +1,12 @@
-Super simple initial api with two endpoints
-
-
 Folder Structure:
-    1. Hello world python file with flask 
-    2. Schema folder for SQL Schema
-    3. CSVs folder for data dumps
+    1. Schema for our DB (implemented on PSQL)
+    2. Static for css stylesheet
+    3. Templates with html pages. Super basic. 
+    4. CSVs with csv data as it stands at the moment
+    5. server.py where all the current python lives
+
+Running: 
+    Right now, all you have to do to run the program is switch to the folder, and run <python server.py --debug> and it'll run. The debug part is optional
 
 Copying CSV Data into tables:
     Note: The order matters due to the constraints so if you're adding new data in bulk to a table, make sure you follow this order. You should also navigate to the CSV folder before you run psql in order for the copy and paste to work. 
@@ -21,22 +23,9 @@ Copying CSV Data into tables:
 WEB-APP
 
 Installation:
-    1. Flask: 
-    https://flask.palletsprojects.com/en/2.0.x/installation/#install-flask
-    2. Flask-RESTful: 
-    https://flask-restful.readthedocs.io/en/latest/installation.html#installation
-
+   
 
 Running CLI: 
-    1. Navigate to directory:
-    2. Run in terminal: <python api.py>
-
-Navigation: 
-    1. To see get endpoint, go to http://127.0.0.1:5000/ and http://127.0.0.1:5000/api/get
-    2. To try out post, do the following command in terminal: 
-        <curl http://127.0.0.1:5000/api/post -H 'Content-Type: application/json' -d '{"name": "Andreas"}'> 
-    Note: you can replace "Andreas" with any name
 
 
-That's it! More very soon :) 
 
