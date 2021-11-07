@@ -19,7 +19,7 @@ Copying CSV Data into tables:
     7. \copy Itineraries FROM './Itineraries.csv' with (format csv, header true, delimiter ',');
 
 
-
+Hernan was here 11/7 @ 6:08 pm
 WEB-APP
 
 Installation:
