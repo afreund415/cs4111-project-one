@@ -1,3 +1,5 @@
+making sure the .env files are not uploading...
+
 Folder Structure:
     1. Schema for our DB (implemented on PSQL)
     2. Static for css stylesheet
@@ -13,6 +15,7 @@ Submitting pull requests on github:
     2. git add -A 
     3. git commit -m "message"
     4. git push 
+
 
 
 Copying CSV Data into tables:

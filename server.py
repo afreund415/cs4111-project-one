@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 # find a better way to do this...
 # make sure to change later! 
-# uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
 uri = config('uri', default='')
 engine = create_engine(uri)
 
