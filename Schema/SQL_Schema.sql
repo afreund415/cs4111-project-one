@@ -6,13 +6,13 @@ CREATE TABLE Countries(
 )
 
 CREATE TABLE Risk_Groups(
-    group_id varchar(20), 
+    group_id varchar(20), --Change to Serial
     gname varchar(30) NOT NULL,
     PRIMARY KEY (group_id)
 )
 
 CREATE TABLE Travelers(
-    traveler_id varchar(20),
+    traveler_id Serial, --Change to Serial
     fname varchar(30) NOT NULL, 
     lname varchar(30) NOT NULL,
     vax_status boolean NOT NULL, 
@@ -24,11 +24,11 @@ CREATE TABLE Travelers(
 )
 
 CREATE TABLE Itineraries(
-    itinerary_id varchar(20),
+    itinerary_id Serial, --Change to Serial
     travel_date date CHECK (travel_date >= CURRENT_TIMESTAMP) NOT NULL,
     departure_time time, 
-    traveler_id varchar(20) NOT NULL,
-    policy_id varchar (20) NOT NULL, --lookups for creating itinerary-policy -- relationship will go thru Flies_To relationship 
+    traveler_id Serial NOT NULL, --Change to Serial
+    policy_id varchar (20) NOT NULL, --lookups for creating itinerary-policy -- relationship will go thru Flies_To relationship...change value to serial
     country_id_origin varchar(2) NOT NULL, 
     country_id_destination varchar(2) NOT NULL, 
     PRIMARY KEY (itinerary_id),
@@ -41,21 +41,21 @@ CREATE TABLE Itineraries(
 -- origin risk group mapping
 CREATE TABLE Member_Of(
     country_id varchar(2), --origin country id
-    group_id varchar(20), --risk groups origin falls into
+    group_id varchar(20), --risk groups origin falls into...change to serial
     PRIMARY KEY (country_id, group_id),
     FOREIGN KEY (country_id) REFERENCES Countries,
     FOREIGN KEY (group_id) REFERENCES Risk_Groups
 )
 
 CREATE TABLE Policies(
-    policy_id varchar(20),
+    policy_id varchar(20), --Change to Serial
     pname varchar(30) NOT NULL,
     valid_from date,
     valid_to date, 
     vax_policy boolean, 
     policy_data varchar(500) NOT NULL,
     country_id varchar(2) NOT NULL, --destination (policy holder)
-    group_id varchar(20) NOT NULL, --risk group (origin risk groups)
+    group_id varchar(20) NOT NULL, --risk group (origin risk groups)..change to serial
     PRIMARY KEY (policy_id),
     FOREIGN KEY (country_id) REFERENCES Countries, 
     FOREIGN KEY (group_id) REFERENCES Risk_Groups

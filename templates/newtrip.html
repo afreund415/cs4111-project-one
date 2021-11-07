@@ -1,0 +1,35 @@
+<html>
+  <!-- <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<!-- <body>
+  <h1>Let's see some travelers</h1>
+  <div>{{data}}</div>
+
+  <div>
+    {% for n in data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div> -->
+
+<!-- <p><a href="another">Go to the other page</a></p> -->
+
+<form method="POST" action="/addtrip">
+<p>New Trip:<br> 
+  <input type="text" name="country_id_origin" placeholder="Origin country"><br> 
+  <input type="text" name="country_id_destination" placeholder="Destination country"><br> 
+  <input type="date" name="travel_date" placeholder="Travel date"><br>
+  <input type="time" name="departure_time" placeholder="Optional: departure time"><br>
+  <input type="submit" value="Add">
+</p>
+</form>
+
+</body>
+
+
+</html>
