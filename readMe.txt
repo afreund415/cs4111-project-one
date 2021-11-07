@@ -14,6 +14,8 @@ Submitting pull requests on github:
     3. git commit -m "message"
     4. git push 
 
+checking if .env files are now being ignored...
+
 
 Copying CSV Data into tables:
     Note: The order matters due to the constraints so if you're adding new data in bulk to a table, make sure you follow this order. You should also navigate to the CSV folder before you run psql in order for the copy and paste to work. 
