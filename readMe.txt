@@ -18,8 +18,6 @@ Copying CSV Data into tables:
 
 
 
-
-
 WEB-APP
 
 Installation:
