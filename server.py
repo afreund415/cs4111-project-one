@@ -10,8 +10,8 @@ app = Flask(__name__)
 
 # find a better way to do this...
 # make sure to change later! 
-# uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
-uri = config('uri', default='')
+uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
+#uri = config('uri', default='')
 engine = create_engine(uri)
 
 # before request code from class
@@ -44,7 +44,7 @@ def index():
 
     print (request.args)
 
-    cur = g.conn.execute("SELECT * From travelers")
+    cur = g.conn.execute(" SELECT * from travelers ")
 
     travelers = []
 
