@@ -10,7 +10,11 @@ app = Flask(__name__)
 
 # find a better way to do this...
 # make sure to change later! 
+
 uri = config('uri', default='')
+
+# uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
+# uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
 
 # before request code from class
@@ -118,6 +122,7 @@ def findPolicy(origin, dest):
     cur.close
     # uses a helper method to find out which riskgroup the origin falls into
     group_id = getGroup(destRiskGroups, origin)
+    print(group_id)
 
     # if it gets a riskgroup id, we can now select the correct policy and return the policy id
     if group_id != null:
@@ -126,10 +131,10 @@ def findPolicy(origin, dest):
         )
     # not robust: doesn't check to make sure that cur2 only has 1 element...
     for r in cur2: 
-        # pid = r[0]
         pid = r['policy_id'] 
     cur2.close()
 
+    print(pid)
     return pid
 
 # helper method for finding correct risk group for an origin-dest pair 
@@ -143,12 +148,38 @@ def getGroup(destRiskGroups, origin):
             cur = g.conn.execute(
                 "SELECT group_id FROM Member_of WHERE country_id = '{}' AND group_id = '{}'".format(origin, riskGroup)  
             )
-            if cur.rowcount > 0:
-                return riskGroup
-            # not sure this is needed
-            else:
-                return null
+        if cur.rowcount > 0:
+            return riskGroup
+            
+# @app.route('/policies', methods=('GET', 'POST'))
+# def policies():
+#     cur = g.conn.execute("SELECT pname FROM policies")
+#     names = []
+
+#     for result in cur:
+#         names.append(result['pname'])
+#     cur.close()
+#     return names
+
+# adds variable to url which is the travelerID...we can use this for seeing a traveler's itineraries for instance
+@app.route('/traveler/<tid>', methods=['GET', 'POST'])
+def showTraveler(tid):
+    cur = g.conn.execute("SELECT * FROM Travelers WHERE traveler_id='{}'".format(tid)) 
+
+    fname = []
+
+    for r in cur:
+        fname.append(r["fname"])
     
+    # if len(fname) == 0:
+
+    cur.close()
+    context = dict(data = fname)
+    return render_template("itineraries.html", **context)
+
+
+
+
 # hello world page
 @app.route('/hello')
 def hello():
