@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 <body>
+  <h1>Welcome to the international covid travel tool</h1>
   <h1>Let's see some travelers</h1>
   <div>{{data}}</div>
 
@@ -23,7 +24,7 @@
 <p>New traveler:<br> 
   <input type="text" name="fname" placeholder="First name"><br> 
   <input type="text" name="lname" placeholder="Last name"><br> 
-  <input type="boolean" name="vax_status" placeholder="Are you vaccinated?Enter True or False"><br>
+  <input type="boolean" name="vax_status" placeholder="Are you vaccinated? Enter True or False"><br>
   <input type="text" name="citizenship" placeholder="Citizenship"><br>
   <input type="date" name="dob" placeholder="Date of birth"><br><br>
   <input type="submit" value="Add">

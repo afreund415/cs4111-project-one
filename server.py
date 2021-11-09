@@ -53,7 +53,7 @@ def index():
 
     for r in cur:
         travelers.append(r)
-        # print(r)
+
     cur.close()
 
     context = dict(data = travelers)
@@ -79,19 +79,28 @@ def add():
     vax_status = request.form['vax_status']
     citizenship = request.form['citizenship']
     dob = request.form['dob']
+    # email = request.form['email']
 
     # add error handling
 
     g.conn.execute(
         "INSERT INTO travelers(fname, lname, vax_status, citizenship, dob) VALUES (%s,%s,%s,%s,%s)", (fname, lname, vax_status, citizenship, dob)
     )
-    
-    # eventually redirect to add new trip
+
+    cur = g.conn.execute(
+        "SELECT traveler_id FROM travelers WHERE fname = '{}' AND lname = '{}' AND vax_status = '{}' AND citizenship = '{}' AND dob = '{}' ".format(fname, lname, vax_status, citizenship, dob)
+    )
+
+    for r in cur:
+        tid = r[0]
+
+    # eventually redirect to add new trip with recently added traveler_id as url parameter...eventually we should use something unique like an email for this
+    # return redirect('/addtrip/tid')
     return redirect('/')
 
 # add new itinerary
-@app.route('/addtrip', methods=['POST'])
-def addtrip():
+@app.route('/addtrip/<tid>', methods=['POST'])
+def addtrip(tid):
     country_id_origin = request.form['country_id_origin']
     country_id_destination = request.form['country_id_destination']
     travel_date = request.form['travel_date']
@@ -99,7 +108,8 @@ def addtrip():
     # calls helper function to find correct policy for origin-destination pair
     policy_id = findPolicy(country_id_origin, country_id_destination)
     # !hardcoded! should be changed to a parameter passed in via the url 
-    traveler_id = 10
+    # traveler_id = 10
+    traveler_id = tid
 
     # SQL for inserting the intinerary
     g.conn.execute(
@@ -122,7 +132,6 @@ def findPolicy(origin, dest):
     cur.close
     # uses a helper method to find out which riskgroup the origin falls into
     group_id = getGroup(destRiskGroups, origin)
-    print(group_id)
 
     # if it gets a riskgroup id, we can now select the correct policy and return the policy id
     if group_id != null:
@@ -162,6 +171,7 @@ def getGroup(destRiskGroups, origin):
 #     return names
 
 # adds variable to url which is the travelerID...we can use this for seeing a traveler's itineraries for instance
+
 @app.route('/traveler/<tid>', methods=['GET', 'POST'])
 def showTraveler(tid):
     cur = g.conn.execute("SELECT * FROM Travelers WHERE traveler_id='{}'".format(tid)) 
@@ -171,12 +181,9 @@ def showTraveler(tid):
     for r in cur:
         fname.append(r["fname"])
     
-    # if len(fname) == 0:
-
     cur.close()
     context = dict(data = fname)
     return render_template("itineraries.html", **context)
-
 
 
 
