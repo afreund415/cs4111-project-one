@@ -15,11 +15,13 @@ CREATE TABLE Travelers(
     traveler_id Serial, --Change to Serial
     fname varchar(30) NOT NULL, 
     lname varchar(30) NOT NULL,
+    email varchar(50) NOT NULL,
     vax_status boolean NOT NULL, 
     citizenship varchar(2) NOT NULL, 
     dob date CHECK (dob < CURRENT_TIMESTAMP) NOT NULL, 
     PRIMARY KEY (traveler_id),
-    FOREIGN KEY (citizenship) REFERENCES Countries
+    FOREIGN KEY (citizenship) REFERENCES Countries,
+    UNIQUE (email)
     -- Cannot map participation constraint with Countries
 )
 
@@ -32,7 +34,7 @@ CREATE TABLE Itineraries(
     country_id_origin varchar(2) NOT NULL, 
     country_id_destination varchar(2) NOT NULL, 
     PRIMARY KEY (itinerary_id),
-    FOREIGN KEY (traveler_id) REFERENCES Travelers,
+    FOREIGN KEY (traveler_id) REFERENCES Travelers ON DELETE CASCADE,
     FOREIGN KEY (policy_id) REFERENCES Policies, 
     FOREIGN KEY (country_id_origin, country_id_destination) REFERENCES Flies_To (country_id_origin, country_id_destination) 
     -- Cannot map participation constraint with Countries, Policies, and Travelers

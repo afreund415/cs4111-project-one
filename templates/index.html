@@ -8,12 +8,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 <body>
-  <!--Lists names of travlers in our database.
-    Users shouldn't be able to see this data.
-    I think we can delete.-->
-
- <!--<h1>Let's see some travelers</h1>
-  <div>{{data}}</div>-->
+  <h1>Welcome to the international covid travel tool</h1>
+  <h1>Let's see some travelers</h1>
+  <div>{{data}}</div>
 
   <div>
     {% for n in data %}
@@ -300,6 +297,15 @@
   <input type="submit" value="Add">
 </fieldset>
 </form>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
 
 </body>
 
