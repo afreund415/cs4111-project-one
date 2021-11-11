@@ -44,7 +44,7 @@ def index():
 
     print (request.args)
 
-    cur = g.conn.execute(" SELECT * from travelers ")
+    cur = g.conn.execute("SELECT * from travelers")
 
     travelers = []
 
@@ -54,7 +54,7 @@ def index():
     cur.close()
 
     context = dict(data = travelers)
-
+    
     return render_template("index.html", **context)
 
 
@@ -144,12 +144,9 @@ def getGroup(destRiskGroups, origin):
             cur = g.conn.execute(
                 "SELECT group_id FROM Member_of WHERE country_id = '{}' AND group_id = '{}'".format(origin, riskGroup)  
             )
-            if cur.rowcount > 0:
-                return riskGroup
-            # not sure this is needed
-            else:
-                return null
-    
+        if cur.rowcount > 0:
+            return riskGroup
+                
 # hello world page
 @app.route('/hello')
 def hello():
