@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 <body>
+  <h1>Welcome to the international covid travel tool</h1>
   <h1>Let's see some travelers</h1>
   <div>{{data}}</div>
 
@@ -18,17 +19,25 @@
   </div>
 
 <!-- <p><a href="another">Go to the other page</a></p> -->
-
 <form method="POST" action="/add">
 <p>New traveler:<br> 
   <input type="text" name="fname" placeholder="First name"><br> 
   <input type="text" name="lname" placeholder="Last name"><br> 
-  <input type="boolean" name="vax_status" placeholder="Are you vaccinated?Enter True or False"><br>
+  <input type="boolean" name="vax_status" placeholder="Are you vaccinated? Enter True or False"><br>
   <input type="text" name="citizenship" placeholder="Citizenship"><br>
   <input type="date" name="dob" placeholder="Date of birth"><br><br>
   <input type="submit" value="Add">
 </p>
 </form>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
 
 </body>
 
