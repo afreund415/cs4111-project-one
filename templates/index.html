@@ -19,7 +19,6 @@
   </div>
 
 <!-- <p><a href="another">Go to the other page</a></p> -->
-
 <form method="POST" action="/add">
 <p>New traveler:<br> 
   <input type="text" name="fname" placeholder="First name"><br> 
@@ -30,6 +29,15 @@
   <input type="submit" value="Add">
 </p>
 </form>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
 
 </body>
 
