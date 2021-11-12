@@ -79,9 +79,8 @@ def index():
     # context = dict(data = travelers)
 
     # return render_template("index.html", **context)
-    return render_template("index.html")
-
-
+    cur = g.conn.execute("SELECT * FROM countries ORDER BY cname")
+    return render_template("index.html", cur = cur)
 
 # add new traveler
 @app.route('/add', methods=['POST'])
