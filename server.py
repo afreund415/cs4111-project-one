@@ -12,9 +12,9 @@ app = Flask(__name__)
 # The secret key is necessary for the session stuff to work...
 # need to look up if this is something we should dynamically create or not 
 app.secret_key = 'dev'
-uri = config('uri', default='')
-# uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
-# uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
+#uri = config('uri', default='')
+#uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
+uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
 
 # ensures that the database is connected before requests
@@ -240,13 +240,14 @@ def findPolicy(origin, dest):
         )
     # not robust: doesn't check to make sure that cur2 only has 1 element...
     for r in cur2: 
-        pid = r['policy_id'] 
+        pid = r['policy_id']
     cur2.close()
 
     return pid
 
     # else:
         # need some sort of error handling here w/ alternative return statement
+        # Maybe just return NULL that way the error is passed along and handled in addTrip method
 
 # helper method for finding correct risk group for an origin-dest pair 
 # takes a list of destination's policies' riskgroups, and finds out which 
@@ -257,13 +258,14 @@ def getGroup(destRiskGroups, origin):
         for riskGroup in destRiskGroups:
             
             cur = g.conn.execute(
-                """SELECT group_id FROM Member_of WHERE country_id = '{}' 
-                AND group_id = '{}'""".format(origin, riskGroup)  
+                """SELECT group_id FROM Member_Of WHERE country_id = '{}' 
+                AND group_id = '{}'""".format(origin, riskGroup)
             )
-        if cur.rowcount >= 0:
+        if cur.rowcount >= 0: # Changed > to >=
             return riskGroup
     # else:
         # what should we do here?
+        # Maybe just return NULL that way the error is passed along and handled in addTrip method
 
 # hello world page
 @app.route('/hello')
