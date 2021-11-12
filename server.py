@@ -8,20 +8,12 @@ from decouple import config #tool for hiding uri credentials
 
 
 app = Flask(__name__)   
-<<<<<<< HEAD
-
-# find a better way to do this...
-# make sure to change later! 
-uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
-#uri = config('uri', default='')
-=======
 # The secret key is necessary for the session stuff to work...
 # need to look up if this is something we should dynamically create or not 
 app.secret_key = 'dev'
-uri = config('uri', default='')
-# uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
-# uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
->>>>>>> 5384f4063608ee0e019af4e89b2bda6e605a4e37
+#uri = config('uri', default='')
+#uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
+uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
 
 # ensures that the database is connected before requests
@@ -75,33 +67,6 @@ def login_required(view):
 # this should be changed dramatically 
 @app.route('/')
 def index():
-<<<<<<< HEAD
-
-    print (request.args)
-
-    cur = g.conn.execute("SELECT * from travelers")
-
-    travelers = []
-
-    for r in cur:
-        travelers.append(r)
-        # print(r)
-    cur.close()
-
-    context = dict(data = travelers)
-    
-    return render_template("index.html", **context)
-
-
-# page for addding a new trip 
-@app.route('/trip')
-def trip():
-
-    print (request.args)
-
-    return render_template("newtrip.html")
-
-=======
     
     # Not sure we need any of this in the long run...best to just format the page 
     # print (request.args)
@@ -120,7 +85,6 @@ def trip():
 # def input():
 #     cur = g.conn.execute("SELECT * FROM countries ORDER BY cname")
 #     return render_template("index.html", countries = cur)
->>>>>>> 5384f4063608ee0e019af4e89b2bda6e605a4e37
 
 # add new traveler
 @app.route('/add', methods=['POST'])
@@ -276,13 +240,14 @@ def findPolicy(origin, dest):
         )
     # not robust: doesn't check to make sure that cur2 only has 1 element...
     for r in cur2: 
-        pid = r['policy_id'] 
+        pid = r['policy_id']
     cur2.close()
 
     return pid
 
     # else:
         # need some sort of error handling here w/ alternative return statement
+        # Maybe just return NULL that way the error is passed along and handled in addTrip method
 
 # helper method for finding correct risk group for an origin-dest pair 
 # takes a list of destination's policies' riskgroups, and finds out which 
@@ -293,18 +258,15 @@ def getGroup(destRiskGroups, origin):
         for riskGroup in destRiskGroups:
             
             cur = g.conn.execute(
-                """SELECT group_id FROM Member_of WHERE country_id = '{}' 
-                AND group_id = '{}'""".format(origin, riskGroup)  
+                """SELECT group_id FROM Member_Of WHERE country_id = '{}' 
+                AND group_id = '{}'""".format(origin, riskGroup)
             )
-        if cur.rowcount > 0:
+        if cur.rowcount >= 0: # Changed > to >=
             return riskGroup
-<<<<<<< HEAD
-                
-=======
     # else:
         # what should we do here?
+        # Maybe just return NULL that way the error is passed along and handled in addTrip method
 
->>>>>>> 5384f4063608ee0e019af4e89b2bda6e605a4e37
 # hello world page
 @app.route('/hello')
 def hello():
