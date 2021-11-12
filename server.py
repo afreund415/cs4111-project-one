@@ -4,6 +4,7 @@ from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, flash, render_template, g, redirect, Response, session, url_for
 import psycopg2
+# delete before submission 
 from decouple import config #tool for hiding uri credentials 
 
 
@@ -115,7 +116,6 @@ def add():
                 """INSERT INTO travelers(fname, lname, vax_status, citizenship, dob)
                 VALUES (%s,%s,%s,%s,%s)""", (fname, lname, vax_status, citizenship, dob)
             )
-
             # gets recently added traveler_id
             # All the work below to actually get a recently added traveler ID feels dumb to me. 
             # There must be a better way to do this but works for now
@@ -260,7 +260,7 @@ def getGroup(destRiskGroups, origin):
                 """SELECT group_id FROM Member_of WHERE country_id = '{}' 
                 AND group_id = '{}'""".format(origin, riskGroup)  
             )
-        if cur.rowcount > 0:
+        if cur.rowcount >= 0:
             return riskGroup
     # else:
         # what should we do here?
