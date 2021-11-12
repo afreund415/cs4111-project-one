@@ -81,11 +81,7 @@ def index():
     # return render_template("index.html", **context)
     return render_template("index.html")
 
-# get list of countries for drop-down
-# @app.route('/input')
-# def input():
-#     cur = g.conn.execute("SELECT * FROM countries ORDER BY cname")
-#     return render_template("index.html", countries = cur)
+
 
 # add new traveler
 @app.route('/add', methods=['POST'])

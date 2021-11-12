@@ -39,7 +39,10 @@
   <label for="dob">Date of Birth:</label>
   <input type="date" id="dob" name="dob"><br>
   <label for="citizenship">Citizenship:</label>
-  <select id="citizenship" name="citizenship" required>
+  <select name = 'citizenship'> {% for c in countries %} <OPTION value={{c.country_id}}>{{c.cname}}</option>{% endfor %}  
+  </select><br>
+  
+  <!-- <select id="citizenship" name="citizenship" required>
     <option value="" disabled selected hidden>Please make a selection</option>
     <option value="AF">Afghanistan</option>
     <option value="AL">Albania</option>
@@ -281,7 +284,7 @@
     <option value="YE">Yemen</option>
     <option value="ZM">Zambia</option>
     <option value="ZW">Zimbabwe</option>
-  </select><br>
+  </select><br> -->
   <label for="dob">Are you vaccinated?</label>
   <select id="vax_status" name="vax_status" required>
     <option value="" disabled selected hidden>Please make a selection</option>
