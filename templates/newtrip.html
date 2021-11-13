@@ -1,32 +1,40 @@
 <html>
-  <!-- <style>
-    body{ 
-      font-size: 15pt;
-      font-family: arial;
-    }
-  </style> -->
+ 
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-<!-- <body>
-  <h1>Let's see some travelers</h1>
-  <div>{{data}}</div>
-
-  <div>
-    {% for n in data %}
-    <div>{{n}}</div>
-    {% endfor %}
-  </div> -->
-
-<!-- <p><a href="another">Go to the other page</a></p> -->
+<style>
+    select:invalid{
+        color: gray;
+    }
+    option{
+        color: black;
+    }
+  </style>
 
 <form method="POST" action="/addtrip">
-<p>New Trip:<br> 
-  <input type="text" name="country_id_origin" placeholder="Origin country"><br> 
-  <input type="text" name="country_id_destination" placeholder="Destination country"><br> 
+<fieldset>
+<legend> New Trip </legend> 
+  
+  <!-- <input type="text" name="country_id_origin" placeholder="Origin country"><br>  -->
+  <label for='country_id_origin'>Origin</label>  
+  <select id="country_id_origin" name="country_id_origin" required>
+    {% for j in cur1 %}
+      <option value={{j[0]}}>{{j[1]}}</option>
+    {% endfor %}
+  </select><br>   
+  <!-- <input type="text" name="country_id_destination" placeholder="Destination country"><br>  -->
+  <label for='country_id_destination'>Destination</label> 
+  <select id="country_id_destination" name="country_id_destination" required>
+    {% for j in cur2 %}
+      <option value={{j[0]}}>{{j[1]}}</option>
+    {% endfor %}
+  </select><br>
+  <label for='travel_date'>Travel Date</label>  
   <input type="date" name="travel_date" placeholder="Travel date"><br>
+  <label for='departure_time'>Departure Time *Optional*</label>  
   <input type="time" name="departure_time" placeholder="Optional: departure time"><br>
   <input type="submit" value="Add">
-</p>
+</fieldset>
 </form>
 <section class="content">
     <header>
