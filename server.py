@@ -12,7 +12,7 @@ app = Flask(__name__)
 # The secret key is necessary for the session stuff to work...
 # need to look up if this is something we should dynamically create or not 
 app.secret_key = 'dev'
-#uri = config('uri', default='')
+# uri = config('uri', default='')
 #uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
 uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
@@ -87,14 +87,18 @@ def index():
 def add():
     fname = request.form['fname']
     lname = request.form['lname']
+    email = request.form['email']
     vax_status = request.form['vax_status']
     citizenship = request.form['citizenship']
     dob = request.form['dob']
-    # email = request.form['email']
+
     error = None
 
     if (not fname) or (not lname):
        error = "Please provide both your first and last names" 
+
+    if not email:
+        error = "Please provide an email"
 
     elif not vax_status:
         error = "Your vaccination status is required"
@@ -108,16 +112,14 @@ def add():
     if error is None:
         try:
             g.conn.execute(
-                """INSERT INTO travelers(fname, lname, vax_status, citizenship, dob)
-                VALUES (%s,%s,%s,%s,%s)""", (fname, lname, vax_status, citizenship, dob)
+                """INSERT INTO travelers(fname, lname, email, vax_status, citizenship, dob)
+                VALUES (%s,%s,%s,%s,%s,%s)""", (fname, lname, email, vax_status, citizenship, dob)
             )
             # gets recently added traveler_id
             # All the work below to actually get a recently added traveler ID feels dumb to me. 
             # There must be a better way to do this but works for now
             cur = g.conn.execute(
-                """SELECT traveler_id FROM travelers WHERE fname = '{}' AND lname = '{}'
-                AND vax_status = '{}' AND citizenship = '{}' AND dob = '{}' 
-                """.format(fname, lname, vax_status, citizenship, dob)
+                "SELECT traveler_id FROM travelers WHERE email = '{}'".format(email)
             )
             if cur.rowcount > 0 and cur.rowcount < 2:
                 for r in cur:
@@ -132,7 +134,7 @@ def add():
             else: 
                 error = "Could not create traveler"
         except Exception as e:
-            error = str(type(e)) + " " + e.args
+            error = str(type(e)) + ": " + str(e.args)
     # asks traveler to try again if not successful 
     flash(error)
     return render_template("index.html")
@@ -202,7 +204,25 @@ def addtrip():
                 # builds temp link to policy page
                 hyperlink_format = '<a href="{link}">{text}</a>'
                 link = hyperlink_format.format(link = pUrl, text = pName + ' Policy Link')
-        
+
+                cur3 = g.conn.execute(
+                    """SELECT t.fname, t.lname FROM travelers t where t.traveler_id = '{}'
+                    """.format(session['tid'])
+                )
+
+                cur2 = g.conn.execute(
+                    """SELECT * FROM Itineraries WHERE traveler_id = '{}' AND travel_date = '{}'
+                    AND country_id_origin = '{}' AND country_id_destination = '{}'
+                    """.format(session['tid'], travel_date, country_id_origin, country_id_destination)
+                )
+                # newItinerary = []
+                # for r in cur1:
+                #     newItinerary.append(r)
+                # cur1.close()
+                # data = cur1.fetchall()
+                # cur2 = dict(data = newItinerary)
+                # context = dict(data = travelers)
+                # cur2 = 
                 # temporary string to show traveler their newly-added trip's policy 
                 #responseStr = """For your trip on {}  from {}  to {},  the 
                 #    following Covid-19 policy applies: {}""".format(travel_date, 
@@ -210,7 +230,7 @@ def addtrip():
 
                 # we will need an HTML template for this eventually 
                 #return (responseStr)
-                return render_template("policy.html")
+                return render_template("policy.html", cur2=cur2, policyLink = link, cur3 = cur3)
             else:
                 error = "Could not create a new trip"
         except Exception as e:
@@ -268,18 +288,6 @@ def getGroup(destRiskGroups, origin):
         # what should we do here?
         # Maybe just return NULL that way the error is passed along and handled in addTrip method
 
-# page for policy
-@app.route('/policy', methods=['GET', 'POST']) 
-def policy():
-    cur = g.conn.execute("SELECT itinerary_id FROM itineraries ORDER BY itinerary_id DESC")
-    if cur.rowcount > 0:
-        for r in cur:
-            itineraryid = r[0].strip()
-        cur.close()
-    
-    cur2 = g.conn.execute("""SELECT * FROM itineraries WHERE itinerary_id = '{}'""".format(itineraryid))
-    return render_template("policy.html", cur2 = cur2) 
-
 # hello world page
 @app.route('/hello')
 def hello():
@@ -302,41 +310,6 @@ if __name__ == "__main__":
 
     run()
 
-
-
-
-
-
-
- 
-
-# SCRAP CODE FOR TESTING STUFF BELOW!
-
-# @app.route('/policies', methods=('GET', 'POST'))
-# def policies():
-#     cur = g.conn.execute("SELECT pname FROM policies")
-#     names = []
-
-#     for result in cur:
-#         names.append(result['pname'])
-#     cur.close()
-#     return names
-
-# adds variable to url which is the travelerID...we can use this for seeing a 
-# traveler's itineraries for instance
-
-@app.route('/traveler/<tid>', methods=['GET', 'POST'])
-def showTraveler(tid):
-    cur = g.conn.execute("SELECT * FROM itineraries WHERE traveler_id='{}'".format(tid)) 
-
-    trips = []
-
-    for r in cur:
-        trips.append(r)
-    
-    cur.close()
-    context = dict(data = trips)
-    return render_template("itineraries.html", **context)
 
 
 
