@@ -12,13 +12,16 @@
   </div>
 
   <form method="POST" action="/addtrip">
-    <p>New Trip:<br> 
-      <input type="text" name="country_id_origin" placeholder="Origin country"><br> 
-      <input type="text" name="country_id_destination" placeholder="Destination country"><br> 
-      <input type="date" name="travel_date" placeholder="Travel date"><br>
-      <input type="time" name="departure_time" placeholder="Optional: departure time"><br>
-      <input type="submit" value="Add">
-    </p>
+    <fieldset>
+      <legend>New Trip:</legend>legend> 
+        <label for="country_id_destination">Destination</label>label>
+        <!--<input type="text" name="country_id_origin" placeholder="Origin country"><br> -->
+        
+        <input type="text" name="country_id_destination" placeholder="Destination country"><br> 
+        <input type="date" name="travel_date" placeholder="Travel date"><br>
+        <input type="time" name="departure_time" placeholder="Optional: departure time"><br>
+        <input type="submit" value="Add">
+    </fieldset>
     </form>    
     </body>
     <p><a href="index">Go back</a></p>

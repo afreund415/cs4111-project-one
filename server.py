@@ -204,12 +204,13 @@ def addtrip():
                 link = hyperlink_format.format(link = pUrl, text = pName + ' Policy Link')
         
                 # temporary string to show traveler their newly-added trip's policy 
-                responseStr = """For your trip on {}  from {}  to {},  the 
-                    following Covid-19 policy applies: {}""".format(travel_date, 
-                    country_id_origin, country_id_destination, link)
+                #responseStr = """For your trip on {}  from {}  to {},  the 
+                #    following Covid-19 policy applies: {}""".format(travel_date, 
+                #    country_id_origin, country_id_destination, link)
 
                 # we will need an HTML template for this eventually 
-                return (responseStr)
+                #return (responseStr)
+                return render_template("policy.html")
             else:
                 error = "Could not create a new trip"
         except Exception as e:
@@ -266,6 +267,18 @@ def getGroup(destRiskGroups, origin):
     # else:
         # what should we do here?
         # Maybe just return NULL that way the error is passed along and handled in addTrip method
+
+# page for policy
+@app.route('/policy', methods=['GET', 'POST']) 
+def policy():
+    cur = g.conn.execute("SELECT itinerary_id FROM itineraries ORDER BY itinerary_id DESC")
+    if cur.rowcount > 0:
+        for r in cur:
+            itineraryid = r[0].strip()
+        cur.close()
+    
+    cur2 = g.conn.execute("""SELECT * FROM itineraries WHERE itinerary_id = '{}'""".format(itineraryid))
+    return render_template("policy.html", cur2 = cur2) 
 
 # hello world page
 @app.route('/hello')

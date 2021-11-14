@@ -1,0 +1,38 @@
+<html>
+ 
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<body>
+
+<form method="POST" action="/policy">
+  <fieldset>
+    <legend>Trip Policy</legend> 
+        <label for='country_id_origin'>Origin:</label>
+            {% for j in cur2 %}
+                <option>{{j[5]}}</option>
+            {% endfor %}
+        <label for='country_id_destination'>Destination:</label><br>
+            {% for j in cur2 %}
+                <option>{{j[6]}}</option>
+            {% endfor %}
+        <label for='travel_date'>Date:</label><br>
+            {% for j in cur2 %}
+                <option>{{j[5]}}</option>
+            {% endfor %}
+        <!--<label for='policy_data'>Policy:</label><br>-->
+</fieldset>
+</form>
+<section class="content">
+    <header>
+      {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+</section>
+
+</body>
+
+
+</html>

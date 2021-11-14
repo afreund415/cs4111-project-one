@@ -3,13 +3,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 <body>
-  <div>{{data}}</div>
-
-  <div>
-    {% for n in data %}
-    <div>{{n}}</div>
-    {% endfor %}
-  </div>
 
 <p>
   <h1>Welcome to the international COVID-19 Travel Tool</h1>
@@ -35,6 +28,7 @@
   <input type="date" id="dob" name="dob"><br>
   <label for="citizenship">Citizenship:</label>
   <select id="citizenship" name="citizenship" required>
+    <option value="" disabled selected hidden>Please make a selection</option>
     {% for j in cur %}
       <option value={{j[0]}}>{{j[1]}}</option>
     {% endfor %}
