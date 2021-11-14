@@ -12,9 +12,9 @@ app = Flask(__name__)
 # The secret key is necessary for the session stuff to work...
 # need to look up if this is something we should dynamically create or not 
 app.secret_key = 'dev'
-#uri = config('uri', default='')
+uri = config('uri', default='')
 #uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
-uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
+# uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
 
 # ensures that the database is connected before requests
@@ -87,14 +87,18 @@ def index():
 def add():
     fname = request.form['fname']
     lname = request.form['lname']
+    email = request.form['email']
     vax_status = request.form['vax_status']
     citizenship = request.form['citizenship']
     dob = request.form['dob']
-    # email = request.form['email']
+
     error = None
 
     if (not fname) or (not lname):
        error = "Please provide both your first and last names" 
+
+    if not email:
+        error = "Please provide an email"
 
     elif not vax_status:
         error = "Your vaccination status is required"
@@ -108,16 +112,14 @@ def add():
     if error is None:
         try:
             g.conn.execute(
-                """INSERT INTO travelers(fname, lname, vax_status, citizenship, dob)
-                VALUES (%s,%s,%s,%s,%s)""", (fname, lname, vax_status, citizenship, dob)
+                """INSERT INTO travelers(fname, lname, email, vax_status, citizenship, dob)
+                VALUES (%s,%s,%s,%s,%s,%s)""", (fname, lname, email, vax_status, citizenship, dob)
             )
             # gets recently added traveler_id
             # All the work below to actually get a recently added traveler ID feels dumb to me. 
             # There must be a better way to do this but works for now
             cur = g.conn.execute(
-                """SELECT traveler_id FROM travelers WHERE fname = '{}' AND lname = '{}'
-                AND vax_status = '{}' AND citizenship = '{}' AND dob = '{}' 
-                """.format(fname, lname, vax_status, citizenship, dob)
+                "SELECT traveler_id FROM travelers WHERE email = '{}'".format(email)
             )
             if cur.rowcount > 0 and cur.rowcount < 2:
                 for r in cur:
@@ -132,7 +134,7 @@ def add():
             else: 
                 error = "Could not create traveler"
         except Exception as e:
-            error = str(type(e)) + " " + e.args
+            error = str(type(e)) + ": " + str(e.args)
     # asks traveler to try again if not successful 
     flash(error)
     return render_template("index.html")
