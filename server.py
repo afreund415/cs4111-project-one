@@ -4,6 +4,7 @@ from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, flash, render_template, g, redirect, Response, session, url_for
 import psycopg2
+# delete before submission 
 from decouple import config #tool for hiding uri credentials 
 
 
@@ -110,7 +111,6 @@ def add():
                 """INSERT INTO travelers(fname, lname, vax_status, citizenship, dob)
                 VALUES (%s,%s,%s,%s,%s)""", (fname, lname, vax_status, citizenship, dob)
             )
-
             # gets recently added traveler_id
             # All the work below to actually get a recently added traveler ID feels dumb to me. 
             # There must be a better way to do this but works for now
@@ -132,7 +132,7 @@ def add():
             else: 
                 error = "Could not create traveler"
         except Exception as e:
-            error = type(e) + " " + e.args
+            error = str(type(e)) + " " + e.args
     # asks traveler to try again if not successful 
     flash(error)
     return render_template("index.html")
@@ -145,7 +145,11 @@ def add():
 def trip(tid):
     cur1 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
     cur2 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
+<<<<<<< HEAD
     return render_template("newtrip.html"), cur1 = cur1, cur2 = cur2)
+=======
+    return render_template("newtrip.html", cur1 = cur1, cur2 = cur2)
+>>>>>>> 1225440f84cb60aec7adb3a403d640256b70b194
 
 
 # add new itinerary
@@ -173,6 +177,9 @@ def addtrip():
 
     elif not traveler_id: 
         error = "Traveler id could not be found"    
+
+    elif not departure_time:
+        departure_time = null
 
     # SQL for inserting the intinerary
     if error is None:
@@ -210,7 +217,8 @@ def addtrip():
             else:
                 error = "Could not create a new trip"
         except Exception as e:
-            error = type(e) + " " + e.args
+            error = str(type(e)) + " " + str(e.args)
+
     # asks traveler to try again if not successful 
     flash(error)
     return redirect(url_for('trip', tid = session['tid']))
