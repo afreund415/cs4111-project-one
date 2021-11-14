@@ -143,8 +143,9 @@ def add():
 @app.route('/trip/<tid>', methods=('GET', 'POST')) 
 @login_required
 def trip(tid):
-    
-    return render_template("newtrip.html")
+    cur1 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
+    cur2 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
+    return render_template("newtrip.html"), cur1 = cur1, cur2 = cur2)
 
 
 # add new itinerary
