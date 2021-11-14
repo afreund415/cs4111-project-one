@@ -7,19 +7,22 @@
 <form method="POST" action="/policy">
   <fieldset>
     <legend>Trip Policy</legend> 
-        <label for='country_id_origin'>Origin:</label>
             {% for j in cur2 %}
-                <option>{{j[5]}}</option>
+                <label for='country_id_origin'>Origin:</label><br>
+                <option>{{j['country_id_origin']}}</option>
+                <label for='country_id_destination'>Destination:</label><br>
+                <option>{{j['country_id_destination']}}</option>
+                <label for='travel_date'>Date:</label><br>
+                <option>{{j['travel_date']}}</option>
             {% endfor %}
-        <label for='country_id_destination'>Destination:</label><br>
-            {% for j in cur2 %}
-                <option>{{j[6]}}</option>
+        <label for='policyLink'>Trip Policy:</label><br>
+        <link>{{policyLink}}</link><br>
+            {% for j in cur3 %}
+                <label for='fname'>First Name:</label><br>  
+                <option>{{j['fname']}}</option>
+                <label for='lname'>Last Name:</label><br>
+                <option>{{j['lname']}}</option><br>
             {% endfor %}
-        <label for='travel_date'>Date:</label><br>
-            {% for j in cur2 %}
-                <option>{{j[5]}}</option>
-            {% endfor %}
-        <!--<label for='policy_data'>Policy:</label><br>-->
 </fieldset>
 </form>
 <section class="content">
