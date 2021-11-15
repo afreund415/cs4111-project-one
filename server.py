@@ -1,9 +1,11 @@
 import os
 import functools
 from sqlalchemy import *
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, flash, render_template, g, redirect, Response, session, url_for
 import psycopg2
+import secrets
 # delete before submission 
 from decouple import config #tool for hiding uri credentials 
 
@@ -11,10 +13,11 @@ from decouple import config #tool for hiding uri credentials
 app = Flask(__name__)   
 # The secret key is necessary for the session stuff to work...
 # need to look up if this is something we should dynamically create or not 
-app.secret_key = 'dev'
-# uri = config('uri', default='')
+app.secret_key = secrets.token_urlsafe(16)
+# app.secret_key = 'dev'
+uri = config('uri', default='')
 #uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
-uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
+# uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
 
 # ensures that the database is connected before requests
@@ -55,30 +58,17 @@ def load_existing_traveler():
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        # this needs better error handling
         if g.user is None:
-            # return redirect(url_for('auth.login'))
             return "something went wrong"
         return view(**kwargs)   
 
     return wrapped_view
         
 
-# homepage that shows generic list of travelers
-# this should be changed dramatically 
+# homepage that allows traveler to sign up 
 @app.route('/')
 def index():
-    
-    # Not sure we need any of this in the long run...best to just format the page 
-    # print (request.args)
-    # cur = g.conn.execute("SELECT * From travelers")
-    # travelers = []
-    # for r in cur:
-    #     travelers.append(r)
-    # cur.close()
-    # context = dict(data = travelers)
 
-    # return render_template("index.html", **context)
     cur = g.conn.execute("SELECT * FROM countries ORDER BY cname")
     return render_template("index.html", cur = cur)
 
@@ -91,7 +81,6 @@ def add():
     vax_status = request.form['vax_status']
     citizenship = request.form['citizenship']
     dob = request.form['dob']
-
     error = None
 
     if (not fname) or (not lname):
@@ -115,18 +104,17 @@ def add():
                 """INSERT INTO travelers(fname, lname, email, vax_status, citizenship, dob)
                 VALUES (%s,%s,%s,%s,%s,%s)""", (fname, lname, email, vax_status, citizenship, dob)
             )
-            # gets recently added traveler_id
-            # All the work below to actually get a recently added traveler ID feels dumb to me. 
-            # There must be a better way to do this but works for now
             cur = g.conn.execute(
                 "SELECT traveler_id FROM travelers WHERE email = '{}'".format(email)
             )
+            # because we have a require a unique email for the insert, I don't think we 
+            # need the if else clause below
             if cur.rowcount > 0 and cur.rowcount < 2:
                 for r in cur:
+                    # grabs new traveler_id
                     newtid = r[0].strip()
                 cur.close()
-
-                # adds the recently created traveler's credentials to their session...for logged-in view
+                # adds the recently created traveler's credentials to their session for logged-in view
                 session.clear()
                 session['tid'] = newtid
                 # redirects to the create trip page with recently created travel id
@@ -136,6 +124,7 @@ def add():
         except Exception as e:
             error = str(type(e)) + ": " + str(e.args)
     # asks traveler to try again if not successful 
+    # might want to add the code below to our else or except clause
     flash(error)
     return render_template("index.html")
 
@@ -153,14 +142,14 @@ def trip(tid):
 # add new itinerary
 @app.route('/addtrip', methods=['POST'])
 def addtrip():
+    # gets traveler_id from session 
+    traveler_id = session['tid']
     country_id_origin = request.form['country_id_origin']
     country_id_destination = request.form['country_id_destination']
     travel_date = request.form['travel_date']
     departure_time = request.form['departure_time']
     # calls helper function to find correct policy for origin-destination pair
     policy_id = findPolicy(country_id_origin, country_id_destination)
-    # gets traveler_id from session 
-    traveler_id = session['tid']
     error = None
 
     # make sure that origin-dest pair are already in flies_to so we don't crash
@@ -171,7 +160,7 @@ def addtrip():
         error = "Please include a travel date for your trip"
     
     elif not policy_id:
-        error = "Could not locate a policy for this trip"
+        error = "Could not locate located a covid-19 travel policy for this trip"
 
     elif not traveler_id: 
         error = "Traveler id could not be found"    
@@ -182,6 +171,8 @@ def addtrip():
     # SQL for inserting the intinerary
     if error is None:
         try:
+            # I use a different style of executing this SQL here...we should consider if we should
+            # use one method or the other...
             g.conn.execute(
                 """INSERT INTO itineraries(country_id_origin, country_id_destination, policy_id,
                 traveler_id, travel_date, departure_time) VALUES (%s,%s,%s,%s,%s,%s)""", 
@@ -201,40 +192,29 @@ def addtrip():
                     pUrl = r['policy_data']
                     pRiskGroup = r['group_id']
                 cur.close()
-                # builds temp link to policy page
+                # builds the link to external policy page
                 hyperlink_format = '<a href="{link}">{text}</a>'
                 link = hyperlink_format.format(link = pUrl, text = pName + ' Policy Link')
-
-                cur3 = g.conn.execute(
-                    """SELECT t.fname, t.lname FROM travelers t where t.traveler_id = '{}'
-                    """.format(session['tid'])
-                )
 
                 cur2 = g.conn.execute(
                     """SELECT * FROM Itineraries WHERE traveler_id = '{}' AND travel_date = '{}'
                     AND country_id_origin = '{}' AND country_id_destination = '{}'
                     """.format(session['tid'], travel_date, country_id_origin, country_id_destination)
                 )
-                # newItinerary = []
-                # for r in cur1:
-                #     newItinerary.append(r)
-                # cur1.close()
-                # data = cur1.fetchall()
-                # cur2 = dict(data = newItinerary)
-                # context = dict(data = travelers)
-                # cur2 = 
-                # temporary string to show traveler their newly-added trip's policy 
-                #responseStr = """For your trip on {}  from {}  to {},  the 
-                #    following Covid-19 policy applies: {}""".format(travel_date, 
-                #    country_id_origin, country_id_destination, link)
 
-                # we will need an HTML template for this eventually 
-                #return (responseStr)
+                cur3 = g.conn.execute(
+                    """SELECT t.fname, t.lname FROM travelers t where t.traveler_id = '{}'
+                    """.format(session['tid'])
+                )
+                
                 return render_template("policy.html", cur2=cur2, policyLink = link, cur3 = cur3)
             else:
                 error = "Could not create a new trip"
-        except Exception as e:
-            error = str(type(e)) + " " + str(e.args)
+        except IntegrityError:
+            pass
+        # this is debug code that will catch very exception so not great for our error handling
+        # except Exception as e:
+        #     error = str(type(e)) + " " + str(e.args)
 
     # asks traveler to try again if not successful 
     flash(error)
@@ -243,50 +223,46 @@ def addtrip():
 # helper method for finding policy for an origin-destination pair
 def findPolicy(origin, dest):
     # creates a list of the riskgroup ids for each policy that a destination-country uses
-    destRiskGroups = [] 
+    destRiskGroups = []
+    error = None 
     cur = g.conn.execute(
         "SELECT * FROM policies WHERE country_id = '{}'".format(dest)
     )
     for r in cur: 
         destRiskGroups.append(r['group_id']) 
     cur.close
-    # uses a helper method to find out which riskgroup the origin falls into
-    group_id = getGroup(destRiskGroups, origin)
+    if len(destRiskGroups) != 0:
+        # uses a helper method to find out which riskgroup the origin falls into
+        group_id = getGroup(destRiskGroups, origin)
 
     # if it gets a riskgroup id, we can now select the correct policy and return the policy id
-    if group_id != null:
-        cur2 = g.conn.execute(
-            """SELECT policy_id FROM policies WHERE country_id = '{}' 
-            AND group_id = '{}'""".format(dest, group_id)
-        )
-    # not robust: doesn't check to make sure that cur2 only has 1 element...
-    for r in cur2: 
-        pid = r['policy_id']
-    cur2.close()
-
-    return pid
-
-    # else:
-        # need some sort of error handling here w/ alternative return statement
-        # Maybe just return NULL that way the error is passed along and handled in addTrip method
+        if group_id != null:
+            cur2 = g.conn.execute(
+                """SELECT policy_id FROM policies WHERE country_id = '{}' 
+                AND group_id = '{}'""".format(dest, group_id)
+            )
+            for r in cur2: 
+                pid = r['policy_id']
+            cur2.close()
+            return pid
+    # this error message never gets flashed, but it helps w/ understanding what happened...
+    else: 
+        error = """Could not locate located a covid-19 travel policy for this trip"""
 
 # helper method for finding correct risk group for an origin-dest pair 
 # takes a list of destination's policies' riskgroups, and finds out which 
 # one applies to the origin country 
 def getGroup(destRiskGroups, origin):
-    # error = None
+
     if (len(destRiskGroups) != 0):
-        for riskGroup in destRiskGroups:
-            
+        for riskGroup in destRiskGroups:       
             cur = g.conn.execute(
                 """SELECT group_id FROM Member_Of WHERE country_id = '{}' 
                 AND group_id = '{}'""".format(origin, riskGroup)
             )
         if cur.rowcount >= 0: # Changed > to >=
             return riskGroup
-    # else:
-        # what should we do here?
-        # Maybe just return NULL that way the error is passed along and handled in addTrip method
+
 
 # hello world page
 @app.route('/hello')
