@@ -15,9 +15,9 @@ app = Flask(__name__)
 # need to look up if this is something we should dynamically create or not 
 app.secret_key = secrets.token_urlsafe(16)
 # app.secret_key = 'dev'
-#uri = config('uri', default='')
+uri = config('uri', default='')
 #uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
-uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
+# uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
 
 # ensures that the database is connected before requests
@@ -192,24 +192,24 @@ def addtrip():
                     pUrl = r['policy_data']
                     pRiskGroup = r['group_id']
                 cur.close()
-                # builds the link to external policy page
-                # hyperlink_format = '<a href="{link}">{text}</a>'
-                # link = hyperlink_format.format(link = pUrl, text = pName + ' Policy Link')
-                # Passes pUrl to new variable which is required for policy.html
-                pLink = """{}""".format(pUrl)
-              
+                # policy link 
+                pLink = '{}'.format(pUrl)
+                # gets recently added itinerary 
                 cur2 = g.conn.execute(
                     """SELECT * FROM Itineraries WHERE traveler_id = '{}' AND travel_date = '{}'
                     AND country_id_origin = '{}' AND country_id_destination = '{}'
                     """.format(session['tid'], travel_date, country_id_origin, country_id_destination)
                 )
-
+                # gets traveler's name
                 cur3 = g.conn.execute(
                     """SELECT t.fname, t.lname FROM travelers t where t.traveler_id = '{}'
                     """.format(session['tid'])
                 )
-              
-                return render_template("policy.html", cur2=cur2, cur3 = cur3, pLink = pLink, pName = pName)
+                # gets countries for adding a new trip on policy page
+                cur4 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
+                cur5 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
+                return render_template("policy.html", cur2=cur2, cur3 = cur3, pLink = pLink, pName = pName,
+                                        cur4 = cur4, cur5 = cur5)
             else:
                 error = "Could not create a new trip"
         except IntegrityError:
@@ -249,7 +249,7 @@ def findPolicy(origin, dest):
             return pid
     # this error message never gets flashed, but it helps w/ understanding what happened...
     else: 
-        error = """Could not locate located a covid-19 travel policy for this trip"""
+        error = "Could not locate located a covid-19 travel policy for this trip"
 
 # helper method for finding correct risk group for an origin-dest pair 
 # takes a list of destination's policies' riskgroups, and finds out which 
