@@ -193,9 +193,11 @@ def addtrip():
                     pRiskGroup = r['group_id']
                 cur.close()
                 # builds the link to external policy page
-                hyperlink_format = '<a href="{link}">{text}</a>'
-                link = hyperlink_format.format(link = pUrl, text = pName + ' Policy Link')
-
+                # hyperlink_format = '<a href="{link}">{text}</a>'
+                # link = hyperlink_format.format(link = pUrl, text = pName + ' Policy Link')
+                # Passes pUrl to new variable which is required for policy.html
+                pLink = """{}""".format(pUrl)
+              
                 cur2 = g.conn.execute(
                     """SELECT * FROM Itineraries WHERE traveler_id = '{}' AND travel_date = '{}'
                     AND country_id_origin = '{}' AND country_id_destination = '{}'
@@ -206,8 +208,8 @@ def addtrip():
                     """SELECT t.fname, t.lname FROM travelers t where t.traveler_id = '{}'
                     """.format(session['tid'])
                 )
-                
-                return render_template("policy.html", cur2=cur2, policyLink = link, cur3 = cur3)
+              
+                return render_template("policy.html", cur2=cur2, cur3 = cur3, pLink = pLink, pName = pName)
             else:
                 error = "Could not create a new trip"
         except IntegrityError:
