@@ -15,9 +15,9 @@ app = Flask(__name__)
 # need to look up if this is something we should dynamically create or not 
 app.secret_key = secrets.token_urlsafe(16)
 # app.secret_key = 'dev'
-uri = config('uri', default='')
+# uri = config('uri', default='')
 #uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
-# uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
+uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
 
 # ensures that the database is connected before requests
