@@ -201,10 +201,9 @@ def addtrip():
                     pUrl = r['policy_data']
                     pRiskGroup = r['group_id']
                 cur.close()
-                # builds temp link to policy page
-                hyperlink_format = '<a href="{link}">{text}</a>'
-                link = hyperlink_format.format(link = pUrl, text = pName + ' Policy Link')
-
+                # Passes pUrl to new variable which is required for policy.html
+                pLink = """{}""".format(pUrl)
+              
                 cur3 = g.conn.execute(
                     """SELECT t.fname, t.lname FROM travelers t where t.traveler_id = '{}'
                     """.format(session['tid'])
@@ -215,22 +214,8 @@ def addtrip():
                     AND country_id_origin = '{}' AND country_id_destination = '{}'
                     """.format(session['tid'], travel_date, country_id_origin, country_id_destination)
                 )
-                # newItinerary = []
-                # for r in cur1:
-                #     newItinerary.append(r)
-                # cur1.close()
-                # data = cur1.fetchall()
-                # cur2 = dict(data = newItinerary)
-                # context = dict(data = travelers)
-                # cur2 = 
-                # temporary string to show traveler their newly-added trip's policy 
-                #responseStr = """For your trip on {}  from {}  to {},  the 
-                #    following Covid-19 policy applies: {}""".format(travel_date, 
-                #    country_id_origin, country_id_destination, link)
-
-                # we will need an HTML template for this eventually 
-                #return (responseStr)
-                return render_template("policy.html", cur2=cur2, policyLink = link, cur3 = cur3)
+              
+                return render_template("policy.html", cur2=cur2, cur3 = cur3, pLink = pLink, pName = pName)
             else:
                 error = "Could not create a new trip"
         except Exception as e:
