@@ -14,7 +14,6 @@ app = Flask(__name__)
 # The secret key is necessary for the session stuff to work...
 # need to look up if this is something we should dynamically create or not 
 app.secret_key = secrets.token_urlsafe(16)
-# app.secret_key = 'dev'
 # uri = config('uri', default='')
 #uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
 uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
@@ -278,8 +277,9 @@ if __name__ == "__main__":
     @click.command()
     @click.option('--debug', is_flag=True)
     @click.option('--threaded', is_flag=True)
-    @click.argument('HOST', default='localhost')
-    @click.argument('PORT', default=5000, type=int)
+    # @click.argument('HOST', default='localhost')
+    @click.argument('HOST', default='0.0.0.0')
+    @click.argument('PORT', default=8111, type=int)
     
     def run(debug, threaded, host, port):
         HOST, PORT = host, port
