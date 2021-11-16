@@ -7,13 +7,15 @@ from flask import Flask, request, flash, render_template, g, redirect, Response,
 import psycopg2
 import secrets
 
-
 app = Flask(__name__)   
 
 # The secret key is necessary for the session management
 app.secret_key = secrets.token_urlsafe(16)
+from decouple import config #tool for hiding uri credentials 
+uri = config('uri', default='')
+uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
 # connects to our class PSQL DB
-uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
+# uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
 
 # ensures that the database is connected before requests
@@ -105,8 +107,11 @@ def add():
                 return redirect(url_for('trip', tid = newtid))
             else: 
                 error = "Could not create traveler"
-        except Exception as e:
-            error = str(type(e)) + ": " + str(e.args)
+        # pass on IntegrityError so our error message shows
+        # except IntegrityError:
+        #     pass
+        except IntegrityError as e:
+            error = (e.orig.diag.message_detail)
     # asks traveler to try again if not successful 
     flash(error)
     return render_template("index.html")
@@ -254,6 +259,7 @@ if __name__ == "__main__":
     @click.option('--debug', is_flag=True)
     @click.option('--threaded', is_flag=True)
     @click.argument('HOST', default='0.0.0.0')
+    # @click.argument('HOST', default='localhost')
     @click.argument('PORT', default=8111, type=int)
     
     def run(debug, threaded, host, port):
