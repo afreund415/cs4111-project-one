@@ -1,18 +1,18 @@
 CREATE TABLE Countries(
     country_id varchar(2),
-    cname varchar(200) NOT NULL, --NOT NULL?
+    cname varchar(200) NOT NULL, 
     PRIMARY KEY (country_id)
     -- Cannot map participation constraint with Risk Groups
 )
 
 CREATE TABLE Risk_Groups(
-    group_id varchar(20), --Change to Serial
+    group_id varchar(20), 
     gname varchar(30) NOT NULL,
     PRIMARY KEY (group_id)
 )
 
 CREATE TABLE Travelers(
-    traveler_id Serial, --Change to Serial
+    traveler_id Serial, 
     fname varchar(30) NOT NULL, 
     lname varchar(30) NOT NULL,
     email varchar(50) NOT NULL,
@@ -26,10 +26,10 @@ CREATE TABLE Travelers(
 )
 
 CREATE TABLE Itineraries(
-    itinerary_id Serial, --Change to Serial
+    itinerary_id Serial,
     travel_date date CHECK (travel_date >= CURRENT_TIMESTAMP) NOT NULL,
     departure_time time, 
-    traveler_id Serial NOT NULL, --Change to Serial
+    traveler_id Serial NOT NULL, 
     policy_id varchar (20) NOT NULL, --lookups for creating itinerary-policy -- relationship will go thru Flies_To relationship...change value to serial
     country_id_origin varchar(2) NOT NULL, 
     country_id_destination varchar(2) NOT NULL, 
@@ -43,7 +43,7 @@ CREATE TABLE Itineraries(
 -- origin risk group mapping
 CREATE TABLE Member_Of(
     country_id varchar(2), --origin country id
-    group_id varchar(20), --risk groups origin falls into...change to serial
+    group_id varchar(20), --risk groups origin falls into
     PRIMARY KEY (country_id, group_id),
     FOREIGN KEY (country_id) REFERENCES Countries,
     FOREIGN KEY (group_id) REFERENCES Risk_Groups
@@ -57,7 +57,7 @@ CREATE TABLE Policies(
     vax_policy boolean, 
     policy_data varchar(500) NOT NULL,
     country_id varchar(2) NOT NULL, --destination (policy holder)
-    group_id varchar(20) NOT NULL, --risk group (origin risk groups)..change to serial
+    group_id varchar(20) NOT NULL, --risk group (origin risk groups)
     PRIMARY KEY (policy_id),
     FOREIGN KEY (country_id) REFERENCES Countries, 
     FOREIGN KEY (group_id) REFERENCES Risk_Groups
