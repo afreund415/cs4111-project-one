@@ -145,7 +145,7 @@ def addtrip():
     elif not travel_date:
         error = "Please include a travel date for your trip"  
     elif not policy_id:
-        error = "Could not locate located a covid-19 travel policy for this trip"
+        error = "Could not locate a covid-19 travel policy for this trip"
     elif not traveler_id: 
         error = "Traveler id could not be found"    
     if checkTravelDate(travel_date) == False:
