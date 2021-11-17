@@ -9,40 +9,22 @@ Readme steps for submission:
 
     Briefly describe two of the web pages that require (what you consider) the most interesting database operations in terms of what the pages are used for, how the page is related to the database operations (e.g., inputs on the page are used in such and such way to produce database operations that do such and such), and why you think they are interesting.
 
+Description: 
+
+Two pages:
 
 
+URL: http://35.243.131.10:8111/
+PSQL: The PostgreSQL account is under Andreas’ UNI (acf2175)
 
-Folder Structure:
-    1. Schema for our DB (implemented on PSQL)
-    2. Static for css stylesheet
-    3. Templates with html pages. Super basic. 
-    4. CSVs with csv data as it stands at the moment
-    5. server.py where all the current python lives
+Structure: 
+    1. Schema folder (not used dynamically) with our DB Schema design
+    2. server.py file where all the SQL queries and website backend logic lives
+    3. Templates folder with HTML templates for webpages
+    4. Static folder with our CSS stylesheet
+    5. CSVs folder with latest version of hard-coded data for our DB (Policies, Risk_Groups, Member_Of, and Flies_To)
 
 Running: 
-    Right now, all you have to do to run the program is switch to the folder, and run <python server.py --debug> and it'll run. The debug part is optional
+    In correct folder with proper packages installed, <run python server.py --debug>
 
-Submitting pull requests on github:
-    1. git pull 
-    2. git add -A 
-    3. git commit -m "message"
-    4. git push 
-
-
-
-Copying CSV Data into tables:
-    Note: The order matters due to the constraints so if you're adding new data in bulk to a table, make sure you follow this order. You should also navigate to the CSV folder before you run psql in order for the copy and paste to work. 
-    1. \copy Countries FROM './Countries.csv' with (format csv, header true, delimiter ',');
-    2. \copy Risk_Groups FROM './Risk_Groups.csv' with (format csv, header true, delimiter ',');
-    3. \copy Travelers FROM './Travelers.csv' with (format csv, header true, delimiter ',');
-    4. \copy Policies FROM './Policies.csv' with (format csv, header true, delimiter ',');
-    5. \copy Flies_To FROM './Flies_To.csv' with (format csv, header true, delimiter ',');
-    6. \copy Member_Of FROM './Member_Of.csv' with (format csv, header true, delimiter ',');
-    7. \copy Itineraries FROM './Itineraries.csv' with (format csv, header true, delimiter ',');
-
-
-
-Installation:
-   
-Navigation: 
 
