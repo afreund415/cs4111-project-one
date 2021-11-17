@@ -6,8 +6,6 @@ from sqlalchemy.pool import NullPool
 from flask import Flask, request, flash, render_template, g, redirect, Response, session, url_for
 import psycopg2
 import secrets
-# delete before submission 
-from decouple import config #tool for hiding uri credentials 
 
 app = Flask(__name__)   
 # The secret key is necessary for the session stuff to work...
