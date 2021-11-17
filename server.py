@@ -6,13 +6,17 @@ from sqlalchemy.pool import NullPool
 from flask import Flask, request, flash, render_template, g, redirect, Response, session, url_for
 import psycopg2
 import secrets
+# delete before submission 
+from decouple import config #tool for hiding uri credentials 
 
 
 app = Flask(__name__)   
-
-# The secret key is necessary for the session management
+# The secret key is necessary for the session stuff to work...
+# need to look up if this is something we should dynamically create or not 
 app.secret_key = secrets.token_urlsafe(16)
-# connects to our class PSQL DB
+# app.secret_key = 'dev'
+#uri = config('uri', default='')
+#uri = "postgresql://andreasfreund:1234@localhost/dbproj1"
 uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
 
@@ -30,6 +34,10 @@ def before_request():
 # closes db connection after requests
 @app.teardown_request
 def teardown_request(exception):
+  """
+  At the end of the web request, this makes sure to close the database connection.
+  If you don't, the database could run out of memory!
+  """
   try:
     g.conn.close()
   except Exception as e:
@@ -53,14 +61,17 @@ def login_required(view):
         if g.user is None:
             return "something went wrong"
         return view(**kwargs)   
+
     return wrapped_view
         
 
 # homepage that allows traveler to sign up 
 @app.route('/')
 def index():
+
     cur = g.conn.execute("SELECT * FROM countries ORDER BY cname")
     return render_template("index.html", cur = cur)
+
 # add new traveler
 @app.route('/add', methods=['POST'])
 def add():
@@ -74,14 +85,19 @@ def add():
 
     if (not fname) or (not lname):
        error = "Please provide both your first and last names" 
+
     if not email:
         error = "Please provide an email"
+
     elif not vax_status:
-        error = "Your vaccination status is required"  
+        error = "Your vaccination status is required"
+    
     elif not citizenship:
         error = "Please provide your citizenship"
+
     elif not dob: 
         error = "Please provide your date of birth"
+
     if error is None:
         try:
             g.conn.execute(
@@ -91,8 +107,8 @@ def add():
             cur = g.conn.execute(
                 "SELECT traveler_id FROM travelers WHERE email = '{}'".format(email)
             )
-            # because we have a require a unique email for the insert, I don't think we need the if else clause below
-            # DELETE IF ELSE
+            # because we have a require a unique email for the insert, I don't think we 
+            # need the if else clause below
             if cur.rowcount > 0 and cur.rowcount < 2:
                 for r in cur:
                     # grabs new traveler_id
@@ -108,6 +124,7 @@ def add():
         except Exception as e:
             error = str(type(e)) + ": " + str(e.args)
     # asks traveler to try again if not successful 
+    # might want to add the code below to our else or except clause
     flash(error)
     return render_template("index.html")
 
@@ -138,23 +155,29 @@ def addtrip():
     # make sure that origin-dest pair are already in flies_to so we don't crash
     if (not country_id_origin) or (not country_id_destination):
        error = "Please provide an origin and destiniation country" 
+
     elif not travel_date:
-        error = "Please include a travel date for your trip"  
+        error = "Please include a travel date for your trip"
+    
     elif not policy_id:
-        error = "Could not locate located a covid-19 travel policy for this trip"
+        error = "Could not locate a Covid-19 travel policy for this trip"
+
     elif not traveler_id: 
-        error = "Traveler id could not be found"    
+        error = "Traveler ID could not be found"    
+
     elif not departure_time:
         departure_time = null
 
     # SQL for inserting the intinerary
     if error is None:
         try:
+            # I use a different style of executing this SQL here...we should consider if we should
+            # use one method or the other...
             g.conn.execute(
-                """INSERT INTO itineraries(country_id_origin, country_id_destination, 
-                policy_id, traveler_id, travel_date, departure_time) 
-                VALUES (%s,%s,%s,%s,%s,%s)""", (country_id_origin, country_id_destination, 
-                policy_id, traveler_id, travel_date, departure_time)
+                """INSERT INTO itineraries(country_id_origin, country_id_destination, policy_id,
+                traveler_id, travel_date, departure_time) VALUES (%s,%s,%s,%s,%s,%s)""", 
+                (country_id_origin, country_id_destination, policy_id, 
+                traveler_id, travel_date, departure_time)
             )
             # get recently-added trip policy
             pName = ''
@@ -169,30 +192,31 @@ def addtrip():
                     pUrl = r['policy_data']
                     pRiskGroup = r['group_id']
                 cur.close()
-                # policy link 
-                pLink = '{}'.format(pUrl)
-                # gets recently added itinerary 
+                # builds the link to external policy page
+                # hyperlink_format = '<a href="{link}">{text}</a>'
+                # link = hyperlink_format.format(link = pUrl, text = pName + ' Policy Link')
+                # Passes pUrl to new variable which is required for policy.html
+                pLink = """{}""".format(pUrl)
+              
                 cur2 = g.conn.execute(
                     """SELECT * FROM Itineraries WHERE traveler_id = '{}' AND travel_date = '{}'
                     AND country_id_origin = '{}' AND country_id_destination = '{}'
-                    """.format(session['tid'], travel_date, country_id_origin, 
-                    country_id_destination)
+                    """.format(session['tid'], travel_date, country_id_origin, country_id_destination)
                 )
-                # gets traveler's name
+
                 cur3 = g.conn.execute(
                     """SELECT t.fname, t.lname FROM travelers t where t.traveler_id = '{}'
                     """.format(session['tid'])
                 )
-                # gets countries for adding a new trip on policy page
-                cur4 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
-                cur5 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
-                return render_template("policy.html", cur2=cur2, cur3 = cur3, 
-                    pLink = pLink, pName = pName, cur4 = cur4, cur5 = cur5)
+              
+                return render_template("policy.html", cur2=cur2, cur3 = cur3, pLink = pLink, pName = pName)
             else:
                 error = "Could not create a new trip"
-        # pass on IntegrityError so our error message shows
         except IntegrityError:
             pass
+        # this is debug code that will catch very exception so not great for our error handling
+        # except Exception as e:
+        #     error = str(type(e)) + " " + str(e.args)
 
     # asks traveler to try again if not successful 
     flash(error)
@@ -225,12 +249,13 @@ def findPolicy(origin, dest):
             return pid
     # this error message never gets flashed, but it helps w/ understanding what happened...
     else: 
-        error = "Could not locate located a covid-19 travel policy for this trip"
+        error = """Could not locate located a covid-19 travel policy for this trip"""
 
 # helper method for finding correct risk group for an origin-dest pair 
 # takes a list of destination's policies' riskgroups, and finds out which 
 # one applies to the origin country 
 def getGroup(destRiskGroups, origin):
+
     if (len(destRiskGroups) != 0):
         for riskGroup in destRiskGroups:       
             cur = g.conn.execute(
@@ -253,13 +278,13 @@ if __name__ == "__main__":
     @click.command()
     @click.option('--debug', is_flag=True)
     @click.option('--threaded', is_flag=True)
-    @click.argument('HOST', default='0.0.0.0')
-    @click.argument('PORT', default=8111, type=int)
+    @click.argument('HOST', default='localhost')
+    @click.argument('PORT', default=5000, type=int)
     
     def run(debug, threaded, host, port):
         HOST, PORT = host, port
         print("running on %s:%d" % (HOST, PORT))
-        app.run(debug=debug, threaded=threaded, host=host, port=port)
+        app.run(debug=debug, threaded=threaded)
 
     run()
 
