@@ -3,3 +3,4 @@ tests/
 .vs/
 *.env
 .DS_Store/
+temp.txt
