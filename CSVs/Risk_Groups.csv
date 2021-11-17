@@ -1,6 +1,12 @@
 group_id,gname
-EU1,EU Exempt From Restrictions
+US1,US Vaccinated Entry
+EU1,Inner EU
 EU2,EU Low Risk
 EU3,EU Vaccinated Entry
-US1,US Banned Countries
-US2,US Risk Group
+UK1,UK Entry
+IE1,IE Entry
+CA1,CA Entry
+AU1,AU Entry
+JP1,JP Restricted Entry
+NZ1,NZ Quarantine-Free Travel
+NZ2,NZ Restricted Entry
