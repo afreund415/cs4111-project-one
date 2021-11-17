@@ -61,7 +61,6 @@ def login_required(view):
 
     return wrapped_view
         
-
 # homepage that allows traveler to sign up 
 @app.route('/')
 def index():
@@ -126,8 +125,6 @@ def add():
     cur = g.conn.execute("SELECT * FROM countries ORDER BY cname")
     return render_template("index.html", cur = cur)
 
-
-
 # page for addding a new trip...requires an existing traveler_id
 @app.route('/trip/<tid>', methods=('GET', 'POST')) 
 @login_required
@@ -138,7 +135,6 @@ def trip(tid):
         WHERE p.country_id = c.country_id ORDER BY c.cname;"""
     )
     return render_template("newtrip.html", cur1 = cur1, cur2 = cur2)
-
 
 # add new itinerary
 @app.route('/addtrip', methods=['POST'])
@@ -192,9 +188,6 @@ def addtrip():
                     pName = r['pname']
                     pUrl = r['policy_data']
                 cur.close()
-                # builds the link to external policy page
-                # hyperlink_format = '<a href="{link}">{text}</a>'
-                # link = hyperlink_format.format(link = pUrl, text = pName + ' Policy Link')
                 # Passes pUrl to new variable which is required for policy.html
                 pLink = """{}""".format(pUrl)
               
@@ -289,12 +282,6 @@ def checkTravelDate(travelDate):
     else:
         return False
 
-
-# hello world page
-@app.route('/hello')
-def hello():
-    return 'Hello, World!'
-
 # main function that runs the entire app 
 if __name__ == "__main__":
     import click
@@ -311,7 +298,3 @@ if __name__ == "__main__":
         app.run(debug=debug, threaded=threaded)
 
     run()
-
-
-
-
