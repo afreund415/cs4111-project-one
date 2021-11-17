@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # The secret key is necessary for the session management
 app.secret_key = secrets.token_urlsafe(16)
-# connects to our class PSQL DB
+# connects to our PSQL DB
 uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 engine = create_engine(uri)
 
@@ -73,7 +73,7 @@ def add():
 
     if (not fname) or (not lname):
        error = "Please provide both your first and last names" 
-    if not email:
+    elif not email:
         error = "Please provide an email"
     elif not vax_status:
         error = "Your vaccination status is required"  
@@ -81,6 +81,13 @@ def add():
         error = "Please provide your citizenship"
     elif not dob: 
         error = "Please provide your date of birth"
+    else:
+        cur = g.conn.execute(
+            "SELECT * FROM travelers WHERE email = '{}'".format(email)
+        )
+        if cur.rowcount > 0:
+            error = 'This email already exists' 
+        cur.close()
     if error is None:
         try:
             g.conn.execute(
@@ -90,28 +97,21 @@ def add():
             cur = g.conn.execute(
                 "SELECT traveler_id FROM travelers WHERE email = '{}'".format(email)
             )
-            # because we have a require a unique email for the insert, I don't think we need the if else clause below
-            # DELETE IF ELSE
-            if cur.rowcount > 0 and cur.rowcount < 2:
-                for r in cur:
-                    # grabs new traveler_id
-                    newtid = r[0].strip()
-                cur.close()
-                # adds the recently created traveler's credentials to their session for logged-in view
-                session.clear()
-                session['tid'] = newtid
-                # redirects to the create trip page with recently created travel id
-                return redirect(url_for('trip', tid = newtid))
-            else: 
-                error = "Could not create traveler"
-        # pass on IntegrityError so our error message shows
-        # except IntegrityError:
-        #     pass
+            for r in cur:
+                # grabs new traveler_id
+                newtid = r[0].strip()
+            cur.close()
+            # adds the recently created traveler's credentials to their session for logged-in view
+            session.clear()
+            session['tid'] = newtid
+            # redirects to the create trip page with recently created travel id
+            return redirect(url_for('trip', tid = newtid))
         except IntegrityError as e:
-            error = (e.orig.diag.message_detail)
+            pass
     # asks traveler to try again if not successful 
     flash(error)
-    return render_template("index.html")
+    cur = g.conn.execute("SELECT * FROM countries ORDER BY cname")
+    return render_template("index.html", cur = cur)
 
 
 
@@ -120,7 +120,10 @@ def add():
 @login_required
 def trip(tid):
     cur1 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
-    cur2 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
+    cur2 = g.conn.execute(
+        """SELECT DISTINCT c.country_id, c.cname FROM policies p, countries c 
+        WHERE p.country_id = c.country_id ORDER BY c.cname;"""
+    )
     return render_template("newtrip.html", cur1 = cur1, cur2 = cur2)
 
 
@@ -137,7 +140,6 @@ def addtrip():
     policy_id = findPolicy(country_id_origin, country_id_destination)
     error = None
 
-    # make sure that origin-dest pair are already in flies_to so we don't crash
     if (not country_id_origin) or (not country_id_destination):
        error = "Please provide an origin and destiniation country" 
     elif not travel_date:
@@ -146,8 +148,11 @@ def addtrip():
         error = "Could not locate located a covid-19 travel policy for this trip"
     elif not traveler_id: 
         error = "Traveler id could not be found"    
-    elif not departure_time:
-        departure_time = null
+    if checkTravelDate(travel_date) == False:
+        error = "Travel date cannot be in the past"
+    # if traveler does not enter time, its set to null since it's not required
+    if not departure_time:
+        departure_time = None
 
     # SQL for inserting the intinerary
     if error is None:
@@ -161,7 +166,6 @@ def addtrip():
             # get recently-added trip policy
             pName = ''
             pURL = ''
-            pRiskGroup = ''
             cur = g.conn.execute(
                 "SELECT * FROM policies WHERE policy_id = '{}'".format(policy_id)
             )
@@ -169,7 +173,6 @@ def addtrip():
                 for r in cur: 
                     pName = r['pname']
                     pUrl = r['policy_data']
-                    pRiskGroup = r['group_id']
                 cur.close()
                 # policy link 
                 pLink = '{}'.format(pUrl)
@@ -185,15 +188,24 @@ def addtrip():
                     """SELECT t.fname, t.lname FROM travelers t where t.traveler_id = '{}'
                     """.format(session['tid'])
                 )
-                # gets countries for adding a new trip on policy page
+                # gets countries for new trip dropdowns on policy page
+                # origin query 
                 cur4 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
-                cur5 = g.conn.execute("SELECT * FROM countries ORDER BY cname")
-                return render_template("policy.html", cur2=cur2, cur3 = cur3, 
-                    pLink = pLink, pName = pName, cur4 = cur4, cur5 = cur5)
+                # destination query
+                cur5 = g.conn.execute(
+                            """SELECT DISTINCT c.country_id, c.cname 
+                            FROM policies p, countries c 
+                            WHERE p.country_id = c.country_id 
+                            ORDER BY c.cname"""
+                        )   
+                return render_template("policy.html", 
+                        cur2=cur2, cur3 = cur3, pLink = pLink, pName = pName,
+                        cur4 = cur4, cur5 = cur5
+                )
             else:
                 error = "Could not create a new trip"
         # pass on IntegrityError so our error message shows
-        except IntegrityError:
+        except IntegrityError as e:
             pass
 
     # asks traveler to try again if not successful 
@@ -233,14 +245,26 @@ def findPolicy(origin, dest):
 # takes a list of destination's policies' riskgroups, and finds out which 
 # one applies to the origin country 
 def getGroup(destRiskGroups, origin):
-    if (len(destRiskGroups) != 0):
-        for riskGroup in destRiskGroups:       
-            cur = g.conn.execute(
-                """SELECT group_id FROM Member_Of WHERE country_id = '{}' 
-                AND group_id = '{}'""".format(origin, riskGroup)
-            )
-        if cur.rowcount >= 0: # Changed > to >=
-            return riskGroup
+    for riskGroup in destRiskGroups:       
+        cur = g.conn.execute(
+            """SELECT group_id FROM Member_Of WHERE country_id = '{}' 
+            AND group_id = '{}'""".format(origin, riskGroup)
+        )
+    if cur.rowcount >= 0: 
+        return riskGroup
+
+#helper method for making sure travel date is not in the past
+def checkTravelDate(travelDate):
+    from datetime import date
+    from datetime import datetime
+    
+    todayDate = date.today()
+    travelDate = datetime.strptime(travelDate, '%Y-%m-%d')
+    travelDate = datetime.date(travelDate)
+    if travelDate >= todayDate:
+        return True
+    else:
+        return False
 
 
 # hello world page
@@ -256,7 +280,6 @@ if __name__ == "__main__":
     @click.option('--debug', is_flag=True)
     @click.option('--threaded', is_flag=True)
     @click.argument('HOST', default='0.0.0.0')
-    # @click.argument('HOST', default='localhost')
     @click.argument('PORT', default=8111, type=int)
     
     def run(debug, threaded, host, port):
