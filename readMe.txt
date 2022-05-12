@@ -3,10 +3,6 @@ Group members:
     -Hernan Gallego (hg2515)
     -Andreas Freund (acf2175)
 
-
-URL: http://35.243.131.10:8111/
-PSQL: The PostgreSQL account is under Andreas’ UNI (acf2175)
-
 Description: 
     For part 3 of our project, we decided to take the web front-end option. As stated in our proposal, we built
     an application that provides international travelers with current COVID-19 policies related to their trips.
