@@ -13,7 +13,6 @@ app = Flask(__name__)
 # The secret key is necessary for the session management
 app.secret_key = secrets.token_urlsafe(16)
 # connects to our PSQL DB
-# uri = "postgresql://acf2175:6901@34.74.246.148/proj1part2"
 uri = config('uri', default='')
 engine = create_engine(uri)
 
